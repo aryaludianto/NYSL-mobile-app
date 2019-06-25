@@ -1,24 +1,4 @@
-<template>
-  <div id="app">
-    <app-header></app-header>
-    <app-schedule v-bind:games="games"></app-schedule>
-    <app-footer></app-footer>
-  </div>
-</template>
-
-<script>
-import header from './components/header'
-import footer from './components/footer'
-import schedule from './components/schedule'
-
-export default {
-  name: 'app',
-  components: {
-    'app-header': header,
-    'app-footer': footer,
-    'app-schedule':schedule
-  }, data (){
-    return{
+{
   "overView": {
       "teams": ["AJ Katzenmaier", "Greenbay", "Howard A Yeager", "Marjorie P Hart", "North", "South"],
       "dates": [
@@ -72,7 +52,7 @@ export default {
       "teamPlayers": ["Tyler Stevens", "Brandon Davies", "Alexander Hart", "Frankie White", "Edward Cole", "Kolby Wright", "Ethan Galloway", "Quentin Hicks", "Aydin Wolf", "Caden Sanchez"],
       "teamGoals": [3, 3, 5, 2, 3, 0, 0, 0, 0, 0],
       "location": "1734 N. Orleans St., Chicago, IL 60614",
-      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.0258843688607!2d-87.64002798467415!3d41.91380227921929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34073f306a3%3A0x9e1726bbf8f23f0e!2s1734+N+Orleans+St%2C+Chicago%2C+IL+60614%2C+USA!5e0!3m2!1sen!2snl!4v1561467908101!5m2!1sen!2snl",
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl",
       "wins": 3,
       "losses": 3,
       "draws": 1,
@@ -84,7 +64,7 @@ export default {
       "teamPlayers": ["Arthur Holland", "Patrick Burns", "Charles Clark", "Scott West", "Joel Thomson", "John Kim", "Giovanny Grant", "Dustin Hill", "Kendrick Mcdonald", "Justus Alston"],
       "teamGoals": [3, 3, 3, 3, 0, 0, 0, 0, 1, 0],
       "location": "2245 N. Southport Ave., Chicago, IL 60614",
-      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2968.585683085616!2d-87.66511458467383!3d41.9232645792187!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd2e37f9b8d2d%3A0x62ad8b907dd755d6!2s2245+N+Southport+Ave%2C+Chicago%2C+IL+60614%2C+USA!5e0!3m2!1sen!2snl!4v1561468042854!5m2!1sen!2snl",
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl",
       "wins": 4,
       "losses": 1,
       "draws": 1,
@@ -96,7 +76,7 @@ export default {
       "teamPlayers": ["Bobby John", "Oliver Cunningham", "Joel Gray", "Oliver Watts", "Rory Robertson", "Alessandro Sloan", "Maxim O'brien", "Elliott Peters", "Gael Chaney", "Bradyn Francis"],
       "teamGoals": [0, 0, 0, 2, 0, 0, 0, 0, 0, 0],
       "location": "2625 N. Orchard St., Chicago, IL 60614",
-      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2968.291914658432!2d-87.64808628467361!3d41.92957827921814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd30f2630e551%3A0x3e719e44a5cef714!2s2625+N+Orchard+St%2C+Chicago%2C+IL+60614%2C+USA!5e0!3m2!1sen!2snl!4v1561468117275!5m2!1sen!2snl",
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl",
       "wins": 1,
       "losses": 2,
       "draws": 2,
@@ -108,7 +88,7 @@ export default {
       "teamPlayers": ["Nathan Bell", "Daniel Young", "Stanley Knight", "Luca White", "Oliver Thompson", "Jayson Mccray", "Easton Meyers", "Jaeden Mullins", "Francisco O'neal", "Jonathon Floyd"],
       "teamGoals": [2, 1, 2, 0, 0, 0, 0, 0, 0, 0],
       "location": "N. Fremont St., Chicago, IL 60614",
-      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2968.9243907367836!2d-87.6530423846741!3d41.91598407921915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd3188c084b73%3A0x492517dd97fe611e!2sN+Fremont+St%2C+Chicago%2C+IL+60614%2C+USA!5e0!3m2!1sen!2snl!4v1561468174927!5m2!1sen!2snl",
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl",
       "wins": 1,
       "losses": 3,
       "draws": 1,
@@ -120,7 +100,7 @@ export default {
       "teamPlayers": ["Aaron Gallagher", "Cameron Woods", "Isaac Hughes", "Max Poole", "Scott Holmes", "Julian Pennington", "Bobby Stewart", "Wyatt Cole", "Ramiro Hines", "Kobe Wolfe"],
       "teamGoals": [1, 0, 0, 0, 1, 0, 1, 0, 0, 0],
       "location": "1409 N. Ogden Ave., Chicago, IL 60610",
-      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.3377998492124!2d-87.64837698467437!3d41.90709647921989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd33af0e6ccc3%3A0x26c81c1d557667da!2s1409+N+Ogden+Ave%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1561468237768!5m2!1sen!2snl",
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl",
       "wins": 1,
       "losses": 2,
       "draws": 2,
@@ -135,7 +115,7 @@ export default {
       "awayTeam": "Greenbay",
       "date": "2019-06-22T09:30:00+0200",
       "day": "Saturday",
-      "dayNumber": 22,
+      "day-number": 22,
       "month": "June",
       "year": "2019",
       "time": "09:30 AM",
@@ -153,7 +133,7 @@ export default {
       "awayTeam": "Howard A Yeager",
       "date": "2019-06-22T13:00:00+0200",
       "day": "Saturday",
-      "dayNumber": 22,
+      "day-number": 22,
       "month": "June",
       "year": "2019",
       "time": "13:00 PM",
@@ -162,7 +142,7 @@ export default {
       "homeScorers": [["Tyler Stevens", 48]],
       "homeTeam": "Greenbay",
       "location": "1734 N. Orleans St., Chicago, IL 60614",
-      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.0258843688607!2d-87.64002798467415!3d41.91380227921929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34073f306a3%3A0x9e1726bbf8f23f0e!2s1734+N+Orleans+St%2C+Chicago%2C+IL+60614%2C+USA!5e0!3m2!1sen!2snl!4v1561467908101!5m2!1sen!2snl"
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl"
       },
       {
       "alreadyPlayed": true,
@@ -171,7 +151,7 @@ export default {
       "awayTeam": "Marjorie P Hart",
       "date": "2019-06-23T09:30:00+0200",
       "day": "Sunday",
-      "dayNumber": 23,
+      "day-number": 23,
       "month": "June",
       "year": "2019",
       "time": "09:30 AM",
@@ -180,7 +160,7 @@ export default {
       "homeScorers": [["Charles Clark", 48]],
       "homeTeam": "Howard A Yeager",
       "location": "2245 N. Southport Ave., Chicago, IL 60614",
-      "map":  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2968.585683085616!2d-87.66511458467383!3d41.9232645792187!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd2e37f9b8d2d%3A0x62ad8b907dd755d6!2s2245+N+Southport+Ave%2C+Chicago%2C+IL+60614%2C+USA!5e0!3m2!1sen!2snl!4v1561468042854!5m2!1sen!2snl"
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl"
       },
       {
       "alreadyPlayed": true,
@@ -189,7 +169,7 @@ export default {
       "awayTeam": "North",
       "date": "2019-06-29T09:30:00+0200",
       "day": "Saturday",
-      "dayNumber": 29,
+      "day-number": 29,
       "month": "June",
       "year": "2019",
       "time": "09:30 AM",
@@ -198,7 +178,7 @@ export default {
       "homeScorers": [["Oliver Watts", 40], ["Oliver Watts", 47]],
       "homeTeam": "Marjorie P Hart",
       "location": "2625 N. Orchard St., Chicago, IL 60614",
-      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2968.291914658432!2d-87.64808628467361!3d41.92957827921814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd30f2630e551%3A0x3e719e44a5cef714!2s2625+N+Orchard+St%2C+Chicago%2C+IL+60614%2C+USA!5e0!3m2!1sen!2snl!4v1561468117275!5m2!1sen!2snl"
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl"
       },
       {
       "alreadyPlayed": true,
@@ -207,7 +187,7 @@ export default {
       "awayTeam": "South",
       "date": "2019-06-30T09:30:00+0200",
       "day": "Sunday",
-      "dayNumber": 30,
+      "day-number": 30,
       "month": "June",
       "year": "2019",
       "time": "09:30 AM",
@@ -216,7 +196,7 @@ export default {
       "homeScorers": [],
       "homeTeam": "North",
       "location": "N. Fremont St., Chicago, IL 60614",
-      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2968.9243907367836!2d-87.6530423846741!3d41.91598407921915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd3188c084b73%3A0x492517dd97fe611e!2sN+Fremont+St%2C+Chicago%2C+IL+60614%2C+USA!5e0!3m2!1sen!2snl!4v1561468174927!5m2!1sen!2snl"
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl"
       },
       {
       "alreadyPlayed": true,
@@ -225,7 +205,7 @@ export default {
       "awayTeam": "Howard A Yeager",
       "date": "2019-07-06T09:30:00+0200",
       "day": "Saturday",
-      "dayNumber": "6",
+      "day-number": "6",
       "month": "July",
       "year": "2019",
       "time": "09:30 AM",
@@ -243,7 +223,7 @@ export default {
       "awayTeam": "Marjorie P Hart",
       "date": "2019-07-06T13:00:00+0200",
       "day": "Saturday",
-      "dayNumber": 6,
+      "day-number": 6,
       "month": "July",
       "year": "2019",
       "time": "13:00 PM",
@@ -261,7 +241,7 @@ export default {
       "awayTeam": "North",
       "date": "2019-07-07T09:30:00+0200",
       "day": "Sunday",
-      "dayNumber": 7,
+      "day-number": 7,
       "month": "July",
       "year": "2019",
       "time": "09:30 AM",
@@ -270,7 +250,7 @@ export default {
       "homeScorers": [["Scott West", 56]],
       "homeTeam": "Howard A Yeager",
       "location": "2245 N. Southport Ave., Chicago, IL 60614",
-      "map":  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2968.585683085616!2d-87.66511458467383!3d41.9232645792187!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd2e37f9b8d2d%3A0x62ad8b907dd755d6!2s2245+N+Southport+Ave%2C+Chicago%2C+IL+60614%2C+USA!5e0!3m2!1sen!2snl!4v1561468042854!5m2!1sen!2snl"
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl"
       },
       {
       "alreadyPlayed": true,
@@ -279,7 +259,7 @@ export default {
       "awayTeam": "South",
       "date": "2019-07-07T13:00:00+0200",
       "day": "Sunday",
-      "dayNumber": 7,
+      "day-number": 7,
       "month": "July",
       "year": "2019",
       "time": "13:00 PM",
@@ -288,7 +268,7 @@ export default {
       "homeScorers": [],
       "homeTeam": "Marjorie P Hart",
       "location": "2625 N. Orchard St., Chicago, IL 60614",
-      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2968.291914658432!2d-87.64808628467361!3d41.92957827921814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd30f2630e551%3A0x3e719e44a5cef714!2s2625+N+Orchard+St%2C+Chicago%2C+IL+60614%2C+USA!5e0!3m2!1sen!2snl!4v1561468117275!5m2!1sen!2snl"
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl"
       },
       {
       "alreadyPlayed": true,
@@ -297,7 +277,7 @@ export default {
       "awayTeam": "Marjorie P Hart",
       "date": "2019-07-13T09:30:00+0200",
       "day": "Saturday",
-      "dayNumber": 13,
+      "day-number": 13,
       "month": "July",
       "year": "2019",
       "time": "09:30 AM",
@@ -315,7 +295,7 @@ export default {
       "awayTeam": "North",
       "date": "2019-07-14T09:30:00+0200",
       "day": "Sunday",
-      "dayNumber": 14,
+      "day-number": 14,
       "month": "July",
       "year": "2019",
       "time": "09:30 AM",
@@ -324,7 +304,7 @@ export default {
       "homeScorers": [["Frankie White", 1], ["Edward Cole", 65], ["Alexander Hart", 71]],
       "homeTeam": "Greenbay",
       "location": "1734 N. Orleans St., Chicago, IL 60614",
-      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.0258843688607!2d-87.64002798467415!3d41.91380227921929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34073f306a3%3A0x9e1726bbf8f23f0e!2s1734+N+Orleans+St%2C+Chicago%2C+IL+60614%2C+USA!5e0!3m2!1sen!2snl!4v1561467908101!5m2!1sen!2snl"
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl"
       },
       {
       "alreadyPlayed": true,
@@ -333,7 +313,7 @@ export default {
       "awayTeam": "South",
       "date": "2019-07-14T13:00:00+0200",
       "day": "Sunday",
-      "dayNumber": 14,
+      "day-number": 14,
       "month": "July",
       "year": "2019",
       "time": "13:00 PM",
@@ -342,7 +322,7 @@ export default {
       "homeScorers": [["Charles Clark", 3], ["Patrick Burns", 18], ["Charles Clark", 86]],
       "homeTeam": "Howard A Yeager",
       "location": "2245 N. Southport Ave., Chicago, IL 60614",
-      "map":  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2968.585683085616!2d-87.66511458467383!3d41.9232645792187!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd2e37f9b8d2d%3A0x62ad8b907dd755d6!2s2245+N+Southport+Ave%2C+Chicago%2C+IL+60614%2C+USA!5e0!3m2!1sen!2snl!4v1561468042854!5m2!1sen!2snl"
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl"
       },
       {
       "alreadyPlayed": true,
@@ -351,7 +331,7 @@ export default {
       "awayTeam": "North",
       "date": "2019-07-20T13:00:00+0200",
       "day": "Saturday",
-      "dayNumber": 20,
+      "day-number": 20,
       "month": "July",
       "year": "2019",
       "time": "13:00 PM",
@@ -369,7 +349,7 @@ export default {
       "awayTeam": "South",
       "date": "2019-07-21T09:30:00+0200",
       "day": "Sunday",
-      "dayNumber": 21,
+      "day-number": 21,
       "month": "July",
       "year": "2019",
       "time": "09:30 AM",
@@ -378,7 +358,7 @@ export default {
       "homeScorers": [["Alexander Hart", 46]],
       "homeTeam": "Greenbay",
       "location": "1734 N. Orleans St., Chicago, IL 60614",
-      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.0258843688607!2d-87.64002798467415!3d41.91380227921929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34073f306a3%3A0x9e1726bbf8f23f0e!2s1734+N+Orleans+St%2C+Chicago%2C+IL+60614%2C+USA!5e0!3m2!1sen!2snl!4v1561467908101!5m2!1sen!2snl"            
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl"            
       },
       {
       "alreadyPlayed": true,
@@ -387,7 +367,7 @@ export default {
       "awayTeam": "South",
       "date": "2019-07-21T13:00:00+0200",
       "day": "Sunday",
-      "dayNumber": 21,
+      "day-number": 21,
       "month": "July",
       "year": "2019",
       "time": "13:00 PM",
@@ -405,7 +385,7 @@ export default {
       "awayTeam": "AJ Katzenmaier",
       "date": "2019-07-27T13:00:00+0200",
       "day": "Saturday",
-      "dayNumber": 27,
+      "day-number": 27,
       "month": "July",
       "year": "2019",
       "time": "13:00 PM",
@@ -414,7 +394,7 @@ export default {
       "homeScorers": [["Brandon Davies", 3], ["Tyler Stevens", 16], ["Alexander Hart", 22], ["Tyler Stevens", 35], ["Alexander Hart", 38], ["Alexander Hart", 45], ["Edward Cole", 47], ["Edward Cole", 68], ["Frankie White", 78]],
       "homeTeam": "Greenbay",
       "location": "1734 N. Orleans St., Chicago, IL 60614",
-      "map":"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.0258843688607!2d-87.64002798467415!3d41.91380227921929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34073f306a3%3A0x9e1726bbf8f23f0e!2s1734+N+Orleans+St%2C+Chicago%2C+IL+60614%2C+USA!5e0!3m2!1sen!2snl!4v1561467908101!5m2!1sen!2snl"
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl"
       },
       {
       "alreadyPlayed": true,
@@ -423,7 +403,7 @@ export default {
       "awayTeam": "Greenbay",
       "date": "2019- 07-28T09:30:00+0200",
       "day": "Sunday",
-      "dayNumber": 28,
+      "day-number": 28,
       "month": "July",
       "year": "2019",
       "time": "09:30 AM",
@@ -432,30 +412,7 @@ export default {
       "homeScorers": [["Kendrick Mcdonald", 25], ["Arthur Holland", 42], ["Arthur Holland", 56], ["Patrick Burns", 74], ["Scott West", 85]],
       "homeTeam": "Howard A Yeager",
       "location": "2245 N. Southport Ave., Chicago, IL 60614",
-      "map":  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2968.585683085616!2d-87.66511458467383!3d41.9232645792187!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd2e37f9b8d2d%3A0x62ad8b907dd755d6!2s2245+N+Southport+Ave%2C+Chicago%2C+IL+60614%2C+USA!5e0!3m2!1sen!2snl!4v1561468042854!5m2!1sen!2snl"    
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl"    
       }
   ]
 }
-  }
-}
-</script>
-
-<style>
-#app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  margin: 0px 0px 0px;
-}
-
-app-header{
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-app-footer{
-  position: fixed;
-  bottom: 0;
-}
-</style>

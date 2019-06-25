@@ -1,0 +1,200 @@
+{ "result": [
+  { 
+    "teams": [ 
+      {
+      "teamName": "AJ Katzenmaier",
+      "teamPlayers": ["Harrison Thomas", "Lewis Hart", "Alfie Russell", "Sebastian Ross", "Declan Burke", "Abram Guzman", "Oakley Bowers", "Drake Hardin","Adonis Norton", "Xavier Harris"],
+      "teamGoals": [4, 3, 3, 1, 0, 1, 0, 0, 0, 0],
+      "location": "24 W. Walton St., Chicago, IL 60610",
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl",
+      "wins": 3,
+      "losses": 2,
+      "draws": 1,
+      "gamesPlayed": 6,
+      "points": 10
+  },
+  {
+      "teamName": "Greenbay",
+      "teamPlayers": ["Tyler Stevens", "Brandon Davies", "Alexander Hart", "Frankie White", "Edward Cole", "Kolby Wright", "Ethan Galloway", "Quentin Hicks", "Aydin Wolf", "Caden Sanchez"],
+      "teamGoals": [3, 3, 5, 2, 3, 0, 0, 0, 0, 0],
+      "location": "1734 N. Orleans St., Chicago, IL 60614",
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl",
+      "wins": 3,
+      "losses": 3,
+      "draws": 1,
+      "gamesPlayed": 7,
+      "points": 10
+  },
+  {
+      "teamName": "Howard A Yeager",
+      "teamPlayers": ["Arthur Holland", "Patrick Burns", "Charles Clark", "Scott West", "Joel Thomson", "John Kim", "Giovanny Grant", "Dustin Hill", "Kendrick Mcdonald", "Justus Alston"],
+      "teamGoals": [3, 3, 3, 3, 0, 0, 0, 0, 1, 0],
+      "location": "2245 N. Southport Ave., Chicago, IL 60614",
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl",
+      "wins": 4,
+      "losses": 1,
+      "draws": 1,
+      "gamesPlayed": 6,
+      "points": 13
+  },
+  {
+      "teamName": "Marjorie P Hart",
+      "teamPlayers": ["Bobby John", "Oliver Cunningham", "Joel Gray", "Oliver Watts", "Rory Robertson", "Alessandro Sloan", "Maxim O'brien", "Elliott Peters", "Gael Chaney", "Bradyn Francis"],
+      "teamGoals": [0, 0, 0, 2, 0, 0, 0, 0, 0, 0],
+      "location": "2625 N. Orchard St., Chicago, IL 60614",
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl",
+      "wins": 1,
+      "losses": 2,
+      "draws": 2,
+      "gamesPlayed": 5,
+      "points": 5
+  },
+  {
+      "teamName": "North",
+      "teamPlayers": ["Nathan Bell", "Daniel Young", "Stanley Knight", "Luca White", "Oliver Thompson", "Jayson Mccray", "Easton Meyers", "Jaeden Mullins", "Francisco O'neal", "Jonathon Floyd"],
+      "teamGoals": [2, 1, 2, 0, 0, 0, 0, 0, 0, 0],
+      "location": "N. Fremont St., Chicago, IL 60614",
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl",
+      "wins": 1,
+      "losses": 3,
+      "draws": 1,
+      "gamesPlayed": 5,
+      "points": 4
+  },
+  {
+      "teamName": "South",
+      "teamPlayers": ["Aaron Gallagher", "Cameron Woods", "Isaac Hughes", "Max Poole", "Scott Holmes", "Julian Pennington", "Bobby Stewart", "Wyatt Cole", "Ramiro Hines", "Kobe Wolfe"],
+      "teamGoals": [1, 0, 0, 0, 1, 0, 1, 0, 0, 0],
+      "location": "1409 N. Ogden Ave., Chicago, IL 60610",
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654246115728!2d-87.63124444878233!3d41.90029237911847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34e07f6bac3%3A0x68a82e5d59952c86!2s24+W+Walton+St%2C+Chicago%2C+IL+60610%2C+USA!5e0!3m2!1sen!2snl!4v1557932229690!5m2!1sen!2snl",
+      "wins": 1,
+      "losses": 2,
+      "draws": 2,
+      "gamesPlayed": 5,
+      "points": 5
+  }],
+
+    "games": [{
+      "id":"00001",
+      "home":"U1",
+      "away":"U4",
+      "date":"2018-09-01T09:30:00+0200",
+      "location":"AJ Katzenmaier"
+    }, 
+    {
+      "id":"00002",
+      "home":"U3",
+      "away":"U2",
+      "date":"2018-09-01T13:00:00+0200",
+      "location":"Greenbay"
+    },
+    {
+      "id":"00003",
+      "home":"U5",
+      "away":"U6",
+      "date":"2018-09-08T09:30:00+0200",
+      "location":"Howard A Yeager"
+    },
+    {
+      "id":"00004",
+      "home":"U6",
+      "away":"U1",
+      "date":"2018-09-08T13:00:00+0200",
+      "location":"Marjorie P Hart"
+    },
+    {
+      "id":"00005",
+      "home":"U2",
+      "away":"U4",
+      "date":"2018-09-15T09:30:00+0200",
+      "location":"North"
+    },
+    {
+      "id":"00006",
+      "home":"U3",
+      "away":"U5",
+      "date":"2018-09-15T13:00:00+0200",
+      "location":"AJ Katzenmaier"
+    },
+    {
+      "id":"00007",
+      "home":"U1",
+      "away":"U3",
+      "date":"2018-09-22T09:30:00+0200",
+      "location":"South"
+    },
+    {
+      "id":"00007",
+      "home":"U2",
+      "away":"U6",
+      "date":"2018-09-22T13:00:00+0200",
+      "location":"Howard A Yeager"
+    },
+    {
+      "id":"00008",
+      "home":"U4",
+      "away":"U5",
+      "date":"2018-09-29T09:30:00+0200",
+      "location":"Greenbay"
+    }, 
+    {
+      "id":"00009",
+      "home":"U2",
+      "away":"U5",
+      "date":"2018-10-06T09:30:00+0200",
+      "location":"Marjorie P Hart"
+    },
+    {
+      "id":"00010",
+      "home":"U1",
+      "away":"U6",
+      "date":"2018-10-06T13:00:00+0200",
+      "location":"South"
+    },
+    {
+      "id":"00011",
+      "home":"U3",
+      "away":"U4",
+      "date":"2018-10-06T09:30:00+0200",
+      "location":"Howard A Yeager"
+    },
+    {
+      "id":"00012",
+      "home":"U5",
+      "away":"U1",
+      "date":"2018-10-08T13:00:00+0200",
+      "location":"Greenbay"
+    }, 
+    {
+      "id":"00013",
+      "home":"U6",
+      "away":"U3",
+      "date":"2018-10-20T09:30:00+0200",
+      "location":"North"
+    }, 
+    {
+      "id":"00014",
+      "home":"U2",
+      "away":"U4",
+      "date":"2018-10-20T13:00:00+0200",
+      "location":"Marjorie P Hart"
+    },
+    {
+      "id":"00015",
+      "home":"U3",
+      "away":"U1",
+      "date":"2018-10-27T09:30:00+0200",
+      "location":"AJ Katzenmaier"
+    },
+    {
+      "id":"00016",
+      "home":"U3",
+      "away":"U1",
+      "date":"2018-10-27T13:00:00+0200",
+      "location":"Howard A Yeager"
+    }]
+
+
+  }
+]
+}
