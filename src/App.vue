@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <app-header></app-header>
-    <app-schedule v-bind:games="games"></app-schedule>
+    <app-schedule v-bind:results="results"></app-schedule>
     <app-footer></app-footer>
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
     'app-footer': footer,
     'app-schedule':schedule
   }, data (){
-    return{
+    return{ results:{
   "overView": {
       "teams": ["AJ Katzenmaier", "Greenbay", "Howard A Yeager", "Marjorie P Hart", "North", "South"],
       "dates": [
@@ -436,6 +436,7 @@ export default {
       }
   ]
 }
+  }
   }
 }
 </script>
