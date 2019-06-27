@@ -38,13 +38,13 @@
   color: white;
   text-shadow: 2px 2px 8px #000000;
 }
-/* 
+
 header{
   overflow: hidden;
   position:sticky;
   top: 0;
   width: 100%;
-} */
+}
 
 
 </style>

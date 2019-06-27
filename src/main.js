@@ -10,7 +10,6 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
-
 Vue.config.productionTip = false
 
 new Vue({

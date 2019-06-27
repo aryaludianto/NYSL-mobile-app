@@ -18,6 +18,12 @@
 
 <style scoped>
 
+footer{
+  overflow: hidden;
+  position:sticky;
+  bottom: 0%;
+  width: 100%;
+}
 
 .head{
   padding: 2%;

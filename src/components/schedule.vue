@@ -1,15 +1,15 @@
 <template>
   <schedule>
-    <div class="container nav-sort">
+    <!-- <div class="container nav-sort" >
       <div id="sort-menu">  
 
         <div class="nav-team">
-          <div class="nav-team-in"> 
+          <div  class="nav-team-in"> 
             <p>Team &#9660;</p>
           </div>
           <div class="dropdown-content">
-            <ul v-for="team in results.overView.teams">
-            <li v-bind:value="team"> {{team}}</li>
+            <ul  v-for="team in results.overView.teams">
+            <li v-bind:value="team"  v-model="selected"> {{team}}</li>
             </ul>
           </div>
         </div>
@@ -38,46 +38,34 @@
         
 
       </div>
+    </div> -->
+    <div id="selection-list" class="container">
+      <div class="selection-sort">
+        <select  class="selections "  v-model="selectedTeam" @change="sortData()">
+          <option selected="selected" value="All Teams">All Teams</option>
+          <option v-for="team in results.overView.teams" v-bind:value="team">
+            {{team}}
+          </option>
+        </select>
+
+
+        <select class="selections" v-model="selectedDate" @change="sortData()" value="All Date">
+          <option selected="selected" value="All Date">All Date</option>
+          <option v-for="game in results.games" v-bind:value="game.date">
+            {{game.day}}, {{game.month}} {{game.dayNumber}}
+          </option>
+        </select>
+
+
+         <select  class="selections" v-model="selectedField" @change="sortData()">
+           <option selected="selected" value="All Fields">All Fields</option>
+           <option v-for="team in results.overView.teams" v-bind:value="team">
+            {{team}}
+           </option>
+        </select>
+      </div>
     </div>
 
-<!-- first -->
-
-
-    <!-- <div class="container">  
-     <div class="row">
-      <div class="container card">
-        <div class="row">
-         <div class="col-3 team">
-           <img class="team-logo" src="../assets/logo.png">
-           <p>U5</p>
-         </div>
-         <div class="col-6 main column">
-           <div class="date">
-            <p>Sat, Sept 08 </p>
-           </div>
-           <div class="time">
-            <div class="row">
-              <hr class="col-2">
-              <p class=""> 9:30 am </p>
-              <hr class="col-2">
-            </div>
-           </div>
-          <div class="loc">
-            <h3>Howard A. Yeager</h3>
-          </div>
-         </div>
-         <div class="col-3 team">
-           <img class="team-logo" src="../assets/laketravis-logo.png">
-           <p>U6</p>
-         </div>
-        </div>
-      </div> 
-     </div>
-    </div> -->
-
-
-
-<!-- second -->
      <div v-for="game in filterData.games" class="container">  
       <div @click="mapClass($event)" v-bind:id="'card-'+game.gameNum" class="row">
         <div class="container card">
@@ -131,13 +119,11 @@
       </div>
     </div>
 
-
-
-  </schedule>
+</schedule>
 </template>
 
 <script>
-export default {
+export default { 
     props: {
       results: {
         type: Object,
@@ -146,14 +132,40 @@ export default {
     },
     data(){
         return{
-          tempResult: this.results
+          tempResult: {...this.results},
+          selectedTeam:'All Teams',
+          selectedDate:'All Date',
+          selectedField:'All Fields'
         }
     },
     methods: {
       mapClass(event) {
-       let targetId = (event.currentTarget.id).slice(5)
-       let mapId = document.getElementById("map-" + targetId)
-       mapId.classList.contains('active')? mapId.classList.remove('active') : mapId.classList.add('active');
+        let targetId = (event.currentTarget.id).slice(5)
+        let mapId = document.getElementById("map-" + targetId)
+        mapId.classList.contains('active')? mapId.classList.remove('active') : mapId.classList.add('active');
+      },
+      sortData(){
+        let tempData = [], tempData1 =[], tempData2 =[];
+        
+        //sort by Teams
+        this.results.games.filter(res => {
+          if(this.selectedTeam === "All Teams") tempData.push(res)
+          if (res.homeTeam === this.selectedTeam || res.awayTeam === this.selectedTeam) tempData.push(res) 
+        })
+
+        //sort by Fields
+        tempData.filter(res=> {
+          if(this.selectedField === "All Fields") tempData1.push(res)
+          if(res.homeTeam === this.selectedField) tempData1.push(res)
+        })
+
+        //sort by Date
+        tempData1.filter(res=>{
+          if(this.selectedDate === "All Date") tempData2.push(res)
+          if(res.date === this.selectedDate) tempData2.push(res)
+        })
+
+      this.tempResult.games = tempData2
       }
     },
     computed:{
@@ -168,6 +180,55 @@ export default {
 
 
 <style scoped>
+
+/* New sort button CSS */
+
+.selection-sort{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(100px, 1fr  ));
+  
+}
+
+.selections{
+ height: 3em;
+ text-align: center;
+}
+
+select {
+     width: 100%;
+     padding-left: 5%;
+}
+
+
+#selection-list{
+  padding: 0%;
+  position: sticky;
+  overflow: hidden;
+  top: 8.2%;
+ 
+}
+
+
+
+
+/* .selection-sort{
+  display: flex;
+  flex-direction: row;
+  padding: 0%;
+  
+}
+
+.selections{
+  width: 100%;
+  height: 3em;
+}
+
+
+#selection-list{
+  padding: 0%;
+} */
+
 
 /* Sort Buttons CSS */
 
@@ -200,6 +261,7 @@ export default {
 
 .container.nav-sort{
   padding: 0;
+  z-index: 1;
 }
 /* 
 .container.container.nav-sort{
@@ -216,6 +278,7 @@ export default {
 
 .nav-team:hover .dropdown-content, .nav-date:hover .dropdown-content, .nav-field:hover .dropdown-content{
   display: block;
+  z-index: 1;
 }
 
 .dropdown-content ul {
@@ -232,6 +295,7 @@ export default {
 
 .dropdown-content ul:hover {
   background-color: #ddd;
+  z-index: 1;
 }
 
 
@@ -246,6 +310,7 @@ export default {
 		-moz-box-shadow: 0 0 10px #ccc;
 		-webkit-box-shadow: 0 0 10px #ccc;
 		box-shadow: 0 0 10px #ccc;
+    z-index: -1
 	}
 
 .team-logo{
@@ -275,10 +340,12 @@ div.col-6.main.column{
 .map-cont{
   background-color: green;
   display: none;
+  
 }
 
 .map-cont.active{
   display: block;
+  
 }
 
 .map-loc{
@@ -290,8 +357,12 @@ p.loc{
   color: white;
   text-shadow: 2px 2px 8px #000000;
   padding: 5px;
+  z-index: -1;
 }
 
+.row.map-cont{
+  z-index: -1;
+}
 
 
 

@@ -7,16 +7,16 @@
 </template>
 
 <script>
-import header from './components/header'
-import footer from './components/footer'
-import schedule from './components/schedule'
+import header from './components/header.vue'
+import footer from './components/footer.vue'
+import schedule from './components/schedule.vue'
 
 export default {
   name: 'app',
   components: {
     'app-header': header,
     'app-footer': footer,
-    'app-schedule':schedule
+    'app-schedule': schedule
   }, data (){
     return{ results:{
   "overView": {
@@ -448,15 +448,4 @@ export default {
   margin: 0px 0px 0px;
 }
 
-app-header{
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-app-footer{
-  position: fixed;
-  bottom: 0;
-}
 </style>
