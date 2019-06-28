@@ -1,10 +1,10 @@
 <template>
   <header>
-    <div class="container ">
-      <div class="row row-no-gutters head">
-        <img class="col-xs-1 col-md-1 img-head" src="../images/chat_logo.png">
-        <h1 class="text-justify gametext">Game Schedule</h1>
-        <img class="col-xs-1 col-md-1 img-head" src="../images/nysl_logo.png">
+    <div id="header-cont" class="container">
+      <div class="head-new">
+        <img class="img-head" src="../images/chat_logo.png">
+        <h1 class="gametext">Game Schedule</h1>
+        <img class="img-head" src="../images/nysl_logo.png">
       </div>
     </div>
   </header>
@@ -12,26 +12,57 @@
 
 <script>
 
+
 </script>
 
 
 <style scoped>
 
+/* row row-no-gutters head */
+
+/* col-xs-1 col-md-1 img-head */
+/* text-justify gametext */
+/* col-xs-1 col-md-1 img-head */
+
+#header-cont{
+  /* height:100%; */
+}
+
+.head-new{
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  align-items:center;
+  background-color: green;
+  padding: 5%;
+  height:100%;
+  width:100%;
+  border-radius: 10px;
+  grid-auto-rows: auto;
+}
+
+div.container{
+  padding:0;
+}
 
 .head{
   padding: 2%;
+  height: 100%;
 }
 
-.row {
+/* .row {
   background-color: green;
-}
+} */
+
 .gametext{
-  font-size: 25px;
   text-align: center;
   margin: auto;
+  color: white;
+  text-shadow: 2px 2px 8px #000000;
 }
+
 .img-head{
-  width: 23%;
+  width: 100%;
+  margin:auto;
 }
 
 .row h1 {
@@ -40,10 +71,10 @@
 }
 
 header{
-  overflow: hidden;
-  position:sticky;
+  /* overflow: hidden; */
+  /* position:sticky;
   top: 0;
-  width: 100%;
+  width: 100%; */
 }
 
 

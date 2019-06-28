@@ -1,49 +1,23 @@
 <template>
-  <schedule>
-    <!-- <div class="container nav-sort" >
-      <div id="sort-menu">  
+<div class="disp-schedule">
 
-        <div class="nav-team">
-          <div  class="nav-team-in"> 
-            <p>Team &#9660;</p>
-          </div>
-          <div class="dropdown-content">
-            <ul  v-for="team in results.overView.teams">
-            <li v-bind:value="team"  v-model="selected"> {{team}}</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="nav-date">
-        <div class="nav-date-in"> 
-          <p>Date &#9660;</p>
-          </div>
-          <div class="dropdown-content">
-            <ul v-for="game in results.games">
-              <li v-bind:value="game.day"> {{game.day}}, {{game.month}} {{game.dayNumber}}</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="nav-field">
-        <div class="nav-field-in"> 
-          <p>Field &#9660;</p>
-          </div>
-          <div class="dropdown-content">
-            <ul v-for="team in results.overView.teams">
-              <li v-bind:value="team"> {{team}}</li>
-            </ul>
-          </div>
-        </div>
-        
-
+ <div class="header">
+    <div id="header-cont" class="container">
+      <div class="head-new">
+        <img class="img-head" src="../images/chat_logo.png">
+        <h1 class="gametext">Game Schedule</h1>
+        <img class="img-head" src="../images/nysl_logo.png">
       </div>
-    </div> -->
+    </div>
+  
+
+
+    
     <div id="selection-list" class="container">
       <div class="selection-sort">
         <select  class="selections "  v-model="selectedTeam" @change="sortData()">
           <option selected="selected" value="All Teams">All Teams</option>
-          <option v-for="team in results.overView.teams" v-bind:value="team">
+          <option v-for="(team,index) in results.overView.teams" v-bind:value="team" :key="index">
             {{team}}
           </option>
         </select>
@@ -51,79 +25,86 @@
 
         <select class="selections" v-model="selectedDate" @change="sortData()" value="All Date">
           <option selected="selected" value="All Date">All Date</option>
-          <option v-for="game in results.games" v-bind:value="game.date">
+          <option v-for="(game,index) in results.games" v-bind:value="game.date" :key="index">
             {{game.day}}, {{game.month}} {{game.dayNumber}}
           </option>
         </select>
 
 
-         <select  class="selections" v-model="selectedField" @change="sortData()">
-           <option selected="selected" value="All Fields">All Fields</option>
-           <option v-for="team in results.overView.teams" v-bind:value="team">
-            {{team}}
-           </option>
+        <select  class="selections" v-model="selectedField" @change="sortData()">
+          <option selected="selected" value="All Fields">All Fields</option>
+          <option v-for="(team,index) in results.overView.teams" v-bind:value="team" :key="index">
+           {{team}}
+          </option>
         </select>
       </div>
     </div>
 
-     <div v-for="game in filterData.games" class="container">  
-      <div @click="mapClass($event)" v-bind:id="'card-'+game.gameNum" class="row">
-        <div class="container card">
-          <div class="row">
-           <div class="col-3 team">
-             <img class="team-logo" src="../assets/logo.png">
-             <p>{{game.homeTeam}}</p>
-           </div>
-           <div class="col-6 main column">
-             <div class="date">
-              <p>{{game.day}}, {{game.month}} {{game.dayNumber}}</p>
-             </div>
+  </div>
 
-             <div class="time">
-              <div class="row">
-                <hr class="col-2">
-                <p class=""> {{game.time}} </p>
-                <hr class="col-2">
+    <div class="card-container">
+      <div v-for="(game,index) in filterData.games" id="card-cont-id"class="container" :key='index'>  
+        <div v-on:click="mapClass($event)" v-bind:id="'card-'+game.gameNum" class="card-wrap">
+          <div class="container card">
+            <div class="row">
+            <div class="col-3 team">
+              <img class="team-logo" src="../assets/logo-home.png">
+              <p>{{game.homeTeam}}</p>
+            </div>
+            <div class="col-6 main column">
+              <div class="date">
+                <p>{{game.day}} {{game.month}} {{game.dayNumber}}</p>
               </div>
-             </div>
-            <div class="loc">
-              <h3>{{game.homeTeam}}</h3>
+
+              <div class="time">
+                <div class="row">
+                  <hr class="col-2">
+                  <p class="row"> {{game.time}} </p>
+                  <hr class="col-2">
+                </div>
+              </div>
+              <div class="loc">
+                <h3>{{game.homeTeam}}</h3>
+              </div>
             </div>
-           </div>
-           <div class="col-3 team">
-             <img class="team-logo" src="../assets/laketravis-logo.png">
-             <p>{{game.awayTeam}}</p>
-           </div>
-          </div>
-        </div> 
-      </div>
-      <div class="row map-cont" v-bind:id="'map-'+game.gameNum" >
-        <div class="col-12">
-          <div class="row">
-            <div class="col-12">
-              <p class="loc">Location: {{game.location}}</p>
+            <div class="col-3 team">
+              <img class="team-logo" src="../assets/away-logo.png">
+              <p>{{game.awayTeam}}</p>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <iframe class="map-loc" v-bind:src=game.map>
-              </iframe>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <p  class="loc">Facility Type: Outdoor</p>
+          </div> 
+        </div>
+        <div class="map-cont" v-bind:id="'map-'+game.gameNum" >
+          <div class="col-12">
+            <div class="row">
+              <div class="col-12">
+                <p class="loc">Location: {{game.location}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <iframe class="map-loc" v-bind:src="game.map" height="160px">
+                </iframe>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <p  class="loc">Facility Type: Outdoor</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-</schedule>
+</div>
+
 </template>
 
 <script>
-export default { 
+
+export default {
+    name: 'schedule', 
     props: {
       results: {
         type: Object,
@@ -146,6 +127,7 @@ export default {
       },
       sortData(){
         let tempData = [], tempData1 =[], tempData2 =[];
+       let witoutGame = [{"time": "No Game"}]
         
         //sort by Teams
         this.results.games.filter(res => {
@@ -165,6 +147,8 @@ export default {
           if(res.date === this.selectedDate) tempData2.push(res)
         })
 
+      tempData2.length === 0 ? tempData2 = witoutGame : tempData2
+
       this.tempResult.games = tempData2
       }
     },
@@ -181,13 +165,60 @@ export default {
 
 <style scoped>
 
+/* Header New */
+#header-cont.container{
+  padding:0;
+  /* height: 50%; */
+}
+
+.header {
+  position: sticky;
+  overflow: hidden;
+  top: 0;
+  grid-row: 1/2;
+}
+
+.head-new{
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  align-items:center;
+  background-color: green;
+  padding: 5%;
+  /* height:100%; */
+  width:100%;
+  
+  grid-auto-rows: auto;
+}
+
+.head{
+  padding: 2%;
+  height: 100%;
+}
+
+.gametext{
+  text-align: center;
+  margin: auto;
+  color: white;
+  text-shadow: 2px 2px 8px #000000;
+}
+
+.img-head{
+  width: 100%;
+  margin:auto;
+}
+
+
+.disp-schedule{
+  display: grid;
+  /* grid-template-rows: repeat(10, 1fr);  */
+}
+
 /* New sort button CSS */
 
 .selection-sort{
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(100px, 1fr  ));
-  
+  grid-template-columns: repeat(auto-fit,minmax(100px, 1fr));
 }
 
 .selections{
@@ -196,17 +227,37 @@ export default {
 }
 
 select {
-     width: 100%;
-     padding-left: 5%;
+  width: 100%;
+  padding-left: 5%;
 }
 
 
 #selection-list{
   padding: 0%;
-  position: sticky;
-  overflow: hidden;
-  top: 8.2%;
+  
+  /* position: sticky; */
+  /* margin: 0 auto;
+  overflow: hidden; */
+}
+
+.card-container{
+  overflow-y: scroll;
+  /* grid-row: 2 / 10; */
+}
+
+.card-container.row{
+  margin: 0;
+}
+
+
+
+.cont-sel{
+  width: 100%;
  
+}
+
+#card-cont-id.container{
+  padding: 0;
 }
 
 
@@ -350,6 +401,7 @@ div.col-6.main.column{
 
 .map-loc{
   width: 100%;
+  height: 160px;
 }
 
 p.loc{

@@ -1,21 +1,19 @@
 <template>
   <div id="app">
-    <app-header></app-header>
-    <app-schedule v-bind:results="results"></app-schedule>
-    <app-footer></app-footer>
+    <!-- <app-header class="app-header"></app-header> -->
+    <app-schedule class="app-schedule" v-bind:results="results"></app-schedule>
+    <!-- <app-footer class="app-footer"></app-footer> -->
   </div>
 </template>
 
 <script>
-import header from './components/header.vue'
-import footer from './components/footer.vue'
+// import header from './components/header.vue'
+// import footer from './components/footer.vue'
 import schedule from './components/schedule.vue'
 
 export default {
   name: 'app',
   components: {
-    'app-header': header,
-    'app-footer': footer,
     'app-schedule': schedule
   }, data (){
     return{ results:{
@@ -446,6 +444,22 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0px 0px 0px;
+  /* display: grid;
+  grid-template-rows: 25vh 70vh; */
 }
+
+/* .app-header {
+  grid-row: 1/2;
+}
+
+.app-schedule {
+  grid-row: 2/3;
+} */
+
+/* .app-footer {
+  grid-row: 3/4;
+} */
+
+
 
 </style>
