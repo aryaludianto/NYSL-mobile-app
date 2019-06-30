@@ -1,18 +1,17 @@
 <template>
 <div class="disp-schedule">
 
+  
+
  <div class="header">
     <div id="header-cont" class="container">
       <div class="head-new">
-        <img class="img-head" src="../images/chat_logo.png">
+        <img class="img-head-1" src="../images/chat_logo.png">
         <h1 class="gametext">Game Schedule</h1>
-        <img class="img-head" src="../images/nysl_logo.png">
+        <img class="img-head-2" src="../images/nysl_logo.png">
       </div>
     </div>
   
-
-
-    
     <div id="selection-list" class="container">
       <div class="selection-sort">
         <select  class="selections "  v-model="selectedTeam" @change="sortData()">
@@ -42,11 +41,12 @@
 
   </div>
 
+
     <div class="card-container">
-      <div v-for="(game,index) in filterData.games" id="card-cont-id"class="container" :key='index'>  
+      <div v-for="(game,index) in filterData.games" id="card-cont-id" class="container" :key='index'>  
         <div v-on:click="mapClass($event)" v-bind:id="'card-'+game.gameNum" class="card-wrap">
           <div class="container card">
-            <div class="row">
+            <div id="full-card" class="row">
             <div class="col-3 team">
               <img class="team-logo" src="../assets/logo-home.png">
               <p>{{game.homeTeam}}</p>
@@ -165,10 +165,33 @@ export default {
 
 <style scoped>
 
-/* Header New */
+@media screen and (orientation:landscape) 
+and (max-device-width: 850px) {
+  
+  .header{
+    height: 30vh;
+  }
+  
+  .card-container{
+    height: 50vh;
+  }
+
+  .card-container.container{
+    height: 80vh;
+  }
+
+}
+
+
+
+
+
+/* Header New
 #header-cont.container{
   padding:0;
-  /* height: 50%; */
+  
+  display: flex;
+
 }
 
 .header {
@@ -176,6 +199,7 @@ export default {
   overflow: hidden;
   top: 0;
   grid-row: 1/2;
+  z-index: 1;
 }
 
 .head-new{
@@ -184,9 +208,9 @@ export default {
   align-items:center;
   background-color: green;
   padding: 5%;
-  /* height:100%; */
+  height:100%;
   width:100%;
-  
+
   grid-auto-rows: auto;
 }
 
@@ -200,18 +224,79 @@ export default {
   margin: auto;
   color: white;
   text-shadow: 2px 2px 8px #000000;
+  max-width: 100%;
 }
 
 .img-head{
-  width: 100%;
+  max-width: 100%;
   margin:auto;
-}
+} */
 
+
+/* New Css header */
+
+.header {
+  position: sticky;
+  overflow: hidden;
+  top: 0;
+  grid-row: 1/2;
+  z-index: 1;
+}
 
 .disp-schedule{
   display: grid;
-  /* grid-template-rows: repeat(10, 1fr);  */
+  /* grid-template-rows: repeat(12, 1fr); */
+  grid-auto-rows: minmax(1fr, 40px)
 }
+
+
+
+.head-cont{
+   grid-row:1/3;
+   height: minmax(100px,300px);
+   margin: 0;
+}
+
+#header-cont.container{
+  padding:0;
+}
+
+.head-new {
+  padding: 1%;
+  background-color: green;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: minmax(10px,auto);
+  grid-gap: 10px;
+  max-width: 960px;
+  margin: 0;
+  align-items: center;
+}
+
+.img-head-1{
+  grid-column: 1/2;
+  min-width: 50%;
+  max-width:100%;
+}
+
+.gametext{
+  grid-column:2/6;
+  color: white;
+  text-shadow: 2px 2px 8px #000000;
+  width: 100%;
+  text-align: center;
+  font-size: 5vw;
+}
+
+.img-head-2{
+  grid-column: 6/7;
+   min-width: 85%;
+   max-width: 90%;
+}
+
+
+
+
 
 /* New sort button CSS */
 
@@ -241,8 +326,11 @@ select {
 }
 
 .card-container{
-  overflow-y: scroll;
-  /* grid-row: 2 / 10; */
+  /* overflow-y: scroll; */
+  display: grid;
+  grid-gap: 10px;
+  padding: 0% 5% ;
+  grid-row: 2 / 13;
 }
 
 .card-container.row{
@@ -385,13 +473,21 @@ div.col-6.main.column{
   background-color: aqua;
 }
 
+#full-card{
+  height: minmax(500px,auto);
+  padding: 5%;
+  
+}
+
+
+
 
 /* Map Css */
 
 .map-cont{
   background-color: green;
   display: none;
-  
+ 
 }
 
 .map-cont.active{
@@ -402,6 +498,7 @@ div.col-6.main.column{
 .map-loc{
   width: 100%;
   height: 160px;
+  overflow-y:scroll;
 }
 
 p.loc{
@@ -410,6 +507,7 @@ p.loc{
   text-shadow: 2px 2px 8px #000000;
   padding: 5px;
   z-index: -1;
+ 
 }
 
 .row.map-cont{

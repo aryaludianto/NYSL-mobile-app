@@ -265,7 +265,7 @@ const goals = (numOfGames) => {
           // give a 20% adv to home team
           if (j == 0){
               score += 5;
-          };
+          }
 
           //add or substract % to different teams - adding or reducing their chance to win
           switch (data["games"][i][teamCatagories[j]]) {
