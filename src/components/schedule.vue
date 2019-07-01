@@ -25,7 +25,7 @@
         <select class="selections" v-model="selectedDate" @change="sortData()" value="All Date">
           <option selected="selected" value="All Date">All Date</option>
           <option v-for="(game,index) in results.games" v-bind:value="game.date" :key="index">
-            {{game.day}}, {{game.month}} {{game.dayNumber}}
+            {{game.day}}, {{game.month}} {{game.dayNumber}}, {{game.time}}
           </option>
         </select>
 
@@ -170,6 +170,8 @@ and (max-device-width: 850px) {
   
   .header{
     height: 30vh;
+    position: sticky;
+
   }
   
   .card-container{
@@ -268,7 +270,7 @@ and (max-device-width: 850px) {
   grid-template-columns: repeat(6, 1fr);
   grid-auto-rows: minmax(10px,auto);
   grid-gap: 10px;
-  max-width: 960px;
+  max-width: 100%;
   margin: 0;
   align-items: center;
 }
