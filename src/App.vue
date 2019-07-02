@@ -1,8 +1,11 @@
 <template>
   <div id="app">
-    <!-- <app-header class="app-header"></app-header> -->
-    <app-schedule class="app-schedule" v-bind:results="results"></app-schedule>
-    <!-- <app-footer class="app-footer"></app-footer> -->
+    <app-schedule v-bind:results="results" ></app-schedule>
+    <!-- <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </div> -->
+    <router-view/>
   </div>
 </template>
 
@@ -14,7 +17,7 @@ import schedule from './components/schedule.vue'
 export default {
   name: 'app',
   components: {
-    'app-schedule': schedule
+    'app-schedule': schedule,
   }, data (){
     return{ results:{
   "overView": {

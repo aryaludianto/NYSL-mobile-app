@@ -3,18 +3,18 @@
 
   
 
- <div class="header">
-    <div id="header-cont" class="container">
+ <div class="header container">
+    <!-- <div id="header-cont" class=""> -->
       <div class="head-new">
         <img class="img-head-1" src="../images/chat_logo.png">
         <h1 class="gametext">Game Schedule</h1>
         <img class="img-head-2" src="../images/nysl_logo.png">
       </div>
-    </div>
+    <!-- </div> -->
   
-    <div id="selection-list" class="container">
+    <div id="selection-list" class="">
       <div class="selection-sort">
-        <select  class="selections "  v-model="selectedTeam" @change="sortData()">
+        <select  class="selections"  v-model="selectedTeam" @change="sortData()">
           <option selected="selected" value="All Teams">All Teams</option>
           <option v-for="(team,index) in results.overView.teams" v-bind:value="team" :key="index">
             {{team}}
@@ -102,7 +102,7 @@
 </template>
 
 <script>
-
+import firebase from 'firebase';
 export default {
     name: 'schedule', 
     props: {
@@ -111,6 +111,7 @@ export default {
         required: true
       }
     },
+    created() {console.log(firebase)},
     data(){
         return{
           tempResult: {...this.results},
@@ -165,24 +166,14 @@ export default {
 
 <style scoped>
 
-@media screen and (orientation:landscape) 
-and (max-device-width: 850px) {
-  
-  .header{
-    height: 30vh;
-    position: sticky;
 
-  }
-  
-  .card-container{
-    height: 50vh;
-  }
 
-  .card-container.container{
-    height: 80vh;
-  }
 
-}
+
+
+
+
+
 
 
 
@@ -238,29 +229,38 @@ and (max-device-width: 850px) {
 /* New Css header */
 
 .header {
+  display: grid;
+  grid-template-rows: 70% 30%;
+  height: 100%;
   position: sticky;
-  overflow: hidden;
+  /* overflow: hidden; */
   top: 0;
-  grid-row: 1/2;
+  /* grid-row: 1/2; */
   z-index: 1;
+}
+
+div.header.container{
+  padding:0%;
 }
 
 .disp-schedule{
   display: grid;
-  /* grid-template-rows: repeat(12, 1fr); */
-  grid-auto-rows: minmax(1fr, 40px)
+  grid-template-rows: 20% 80%;
+  height: 100vh;
+  grid-gap: 10px;
 }
 
 
 
-.head-cont{
+/* .head-cont{
    grid-row:1/3;
    height: minmax(100px,300px);
    margin: 0;
-}
+} */
 
-#header-cont.container{
+#header-cont{
   padding:0;
+  height: 100%;
 }
 
 .head-new {
@@ -270,15 +270,16 @@ and (max-device-width: 850px) {
   grid-template-columns: repeat(6, 1fr);
   grid-auto-rows: minmax(10px,auto);
   grid-gap: 10px;
-  max-width: 100%;
+  width: 100%;
   margin: 0;
   align-items: center;
+  justify-items: center;
+  height: 100%;
 }
 
 .img-head-1{
   grid-column: 1/2;
-  min-width: 50%;
-  max-width:100%;
+  width:60%;
 }
 
 .gametext{
@@ -287,13 +288,12 @@ and (max-device-width: 850px) {
   text-shadow: 2px 2px 8px #000000;
   width: 100%;
   text-align: center;
-  font-size: 5vw;
+  font-size: auto;
 }
 
 .img-head-2{
   grid-column: 6/7;
-   min-width: 85%;
-   max-width: 90%;
+   width: 60%;
 }
 
 
@@ -304,13 +304,19 @@ and (max-device-width: 850px) {
 
 .selection-sort{
   width: 100%;
+  height: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(100px, 1fr));
+  background-color: white;
 }
 
 .selections{
- height: 3em;
  text-align: center;
+ background: url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0Ljk1IDEwIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9LmNscy0ye2ZpbGw6IzQ0NDt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPmFycm93czwvdGl0bGU+PHJlY3QgY2xhc3M9ImNscy0xIiB3aWR0aD0iNC45NSIgaGVpZ2h0PSIxMCIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIxLjQxIDQuNjcgMi40OCAzLjE4IDMuNTQgNC42NyAxLjQxIDQuNjciLz48cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iMy41NCA1LjMzIDIuNDggNi44MiAxLjQxIDUuMzMgMy41NCA1LjMzIi8+PC9zdmc+) no-repeat 95% 50%;
+ -moz-appearance: none; 
+ -webkit-appearance: none; 
+ appearance: none;
+ background-color:white;
 }
 
 select {
@@ -321,25 +327,20 @@ select {
 
 #selection-list{
   padding: 0%;
-  
-  /* position: sticky; */
-  /* margin: 0 auto;
-  overflow: hidden; */
+  height: 100%;
 }
 
 .card-container{
-  /* overflow-y: scroll; */
+  overflow-y: scroll;
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 10px; 
   padding: 0% 5% ;
-  grid-row: 2 / 13;
+  /* grid-row: 2 / 13; */
 }
 
 .card-container.row{
   margin: 0;
 }
-
-
 
 .cont-sel{
   width: 100%;
@@ -397,7 +398,7 @@ select {
   margin: auto;
   text-align: center;
   font-weight: bold;
-  font-size: 130%;
+  font-size: 100%;
 }
 
 .container.nav-sort{
@@ -439,12 +440,6 @@ select {
   z-index: 1;
 }
 
-
-
-
-
-
-
 /* Card CSS */
 
 .card{
@@ -460,12 +455,13 @@ select {
 
 p, h3{
   text-align: center;
+  font-size: 130%;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
 }
 
-p, h3{
-  font-size: 1em;
-  font-weight: bold;
-}
+
 
 div.col-6.main.column{
   margin:auto;
@@ -476,9 +472,8 @@ div.col-6.main.column{
 }
 
 #full-card{
-  height: minmax(500px,auto);
+  height: minmax(300px,auto);
   padding: 5%;
-  
 }
 
 
@@ -549,6 +544,71 @@ p.loc{
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
+/* Media Queries */
+
+
+@media screen and (orientation:landscape) 
+and (max-device-width: 850px) {
+  
+  .header{
+    height: 100%;
+    position: sticky;
+    /* background-color: green; */
+    padding: 0 10% 0;
+    margin: auto;
+
+  }
+
+  .img-head-1, .img-head-2 {
+    width: 60%;
+  }
+
+  h1.gametext{
+  font-size: auto;
+}
+
+
+  
+  .card-container{
+    /* height: 80vh; */
+  }
+
+  .card-container.container{
+    /* height: 80vh; */
+  }
+
+  p, h3{
+  font-size: 80%;
+}
+
+}
+
+
+
+@media screen and (min-device-width: 180px) and (max-device-width: 450px) {
+
+  .img-head-1, .img-head-2{
+    width: 100%
+  }
+
+    p, h3{
+  font-size: 60%;
+}
+
+.time.row hr {
+  width: 10%;
+}
+
+}
+
+
+
+
+/* reset */
+
+
 
 
 </style>
