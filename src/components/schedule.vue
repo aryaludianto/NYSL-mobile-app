@@ -574,7 +574,8 @@ export default {
     },
     computed:{
       filterData(){
-        console.log(this.tempResult)
+        this.sortData()
+        
         return this.tempResult
       }
 

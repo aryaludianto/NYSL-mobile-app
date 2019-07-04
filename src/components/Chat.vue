@@ -1,50 +1,51 @@
 <template>
-<div class="body-wrap">
-  <div class="header container">
-    <div class="head-new">
-     <img class="img-head-1" src="../images/chat_logo.png">
-      <h1 class="gametext">NYSL Chat</h1>
-      <img class="img-head-2" src="../images/nysl_logo.png">
-    </div>
-  </div>
-  <div class="body-chat">
-    <div class="chat">
-       <div id="advice" class="advice">
-        You must to be logged
-        <button id="login" class="button is-info" @click="login()">Login!</button>      
-      </div> 
-      <div id="posts" class="box">
-       <p id="load-notif"> Loading posts... </p>
-       <div class="cont-messages"  v-for="(key ,index) in displayChat" id="card-messages" :key='index' :class='{me : currentUser == key.name}'>
-        <p>{{key.name}} says:</p>
-        <p>{{key.body}}</p>
-       </div>
-
+  <div class="body-wrap">
+    
+    <div class="header container">
+      <div class="head-new">
+       <img class="img-head-1" src="../images/chat_logo.png">
+        <h1 class="gametext">NYSL Chat</h1>
+        <img class="img-head-2" src="../images/nysl_logo.png">
       </div>
-      
-      <div class="inputs">
-        <form @submit.prevent="writeNewPost()">
-        <input id="textInput" class="input" type="text" placeholder="Your message..." v-model="newMessage">
-        <button id="create-post" class="button is-primary" >Send</button>
-        </form>
-      </div>
-      <button @click="getUser">get user</button>
-      <button @click="getPosts">get Post</button>
+      <h3>Welcome to NYSL Chat</h3>
     </div>
-  </div>
+
+    <div class="body-chat">
+      <div class="chat">
+        <div id="advice" class="advice">
+          You must to be logged
+          <button id="login" class="button is-info" @click="login()">Login!</button>      
+        </div> 
+        <div id="posts" class="box">
+          <p id="load-notif"> Loading posts... </p>
+          <div class="cont-messages"  v-for="(key ,index) in displayChat" id="card-messages" :key='index' :class='{myMessage : currentUser == key.name}'>
+            <p>{{key.name}} says: </p>
+            <p>{{key.body}}</p>
+          </div>
+        </div>  
+        <div class="inputs">
+          <form @submit.prevent="writeNewPost()" class="form-message" id="frm-mssg">
+            <input id="textInput" class="input" type="text" placeholder="Your message..." v-model="newMessage">
+            <button id="create-post" class="button is-primary" >Send</button>
+          </form>
+          <h3></h3>
+        </div>
+      </div>
+    </div>
 
 
-  <div class="foot">
-    <router-link to="/schedule"> <h3> Back to Schedule </h3> </router-link> 
+    <div class="foot">
+      <router-link to="/schedule"> <h3> Back to Schedule </h3> </router-link> 
+    </div>
+
   </div>
-</div>
 </template>
 
 <script>
 import firebase, { messaging } from 'firebase';
 
+
 export default {
-  // name: Chat,
   data(){
     return{
       name:null,
@@ -55,16 +56,7 @@ export default {
     }
   },
   mounted() {
-    //  console.log(firebase)
     this.isLoggedIn();
-    // this.getPosts()
-    //  var messages;
-    //        firebase.database().ref('main-chat').on('value', function (data) {
-    //            messages = data.val();
-    //            console.log(messages)
-    //        })
-    //       this.dispMessages = messages;
-    //       document.getElementById("load-notif").innerHTML="";
   },
     methods: {
       login() {
@@ -78,8 +70,6 @@ export default {
         if(document.getElementById("textInput").value===''){
           return
         } 
-       
-        console.log(this.newMessage)
 
         // Values
          var text = this.newMessage
@@ -98,6 +88,7 @@ export default {
 
         //clearing newMessage data and input
          this.newMessage = null;
+        
 
          return this.getPosts();
       },
@@ -107,24 +98,20 @@ export default {
       getPosts() {
         let that = this;
         var messages;
-           firebase.database().ref('main-chat').on('value', function (data) {
-               messages = data.val();
-               document.getElementById("load-notif").innerHTML="";
-               that.dispMessages = messages;        })
-          //  console.log("getting posts");
-          // this.dispMessages = messages;
-         
-          // return console.log(this.dispMessages);
+        firebase.database().ref('main-chat').on('value', function (data) {
+          messages = data.val();
+          document.getElementById("load-notif").innerHTML="";
+          that.dispMessages = messages;        
+          })
        },
        isLoggedIn() {
-        const that = this;
-        let chatMessages = {...this.dispMessages}
-         
+        const that = this;        
          firebase.auth().onAuthStateChanged(function (user) {
           if (user) {
             // User is signed in.
             document.getElementById("posts").classList.add("active")
             document.getElementById("advice").classList.add("active")
+            document.getElementById("frm-mssg").classList.add("active")
             that.currentUser = firebase.auth().currentUser.displayName;
             that.getPosts();
 
@@ -139,35 +126,7 @@ export default {
     },
     computed:{
       displayChat(){
-        const that = this;
         let chatMessages = {...this.dispMessages}
-         
-        //  firebase.auth().onAuthStateChanged(function (user) {
-        //   if (user) {
-        //     // User is signed in.
-        //     document.getElementById("posts").classList.add("active")
-        //     document.getElementById("advice").classList.add("active")
-        //     // that.getPosts();
-
-        //   } else {
-        //     // No user is signed in.
-        //     document.getElementById("posts").classList.remove("active")
-        //     document.getElementById("advice").classList.remove("active")
-        //   }
-        //   })
-         
-
-        // console.log(this.dispMessages)
-        
-      //  Object.keys(this.dispMessages).forEach(item => {
-      //    console.log(item[name])
-      //     // if(item.name == firebase.auth().currentUser.displayName){
-      //     //   item.user= "main";
-      //     // } else {
-      //     //   item.user = "second";
-      //     // }
-      //   });
-      console.log(chatMessages)
 
         return chatMessages;
       }
@@ -179,9 +138,19 @@ export default {
 
 <style scoped>
 
+/* Body wrap */
+.body-wrap{
+  display: grid;
+  grid-template-rows: 15% 75% 10% ;
+  height: 100vh;
+  grid-auto-columns: 100vw;
+  /* grid-gap: 10px; */
+}
+
+/* header */
 .header {
   display: grid;
-  grid-template-rows: 70% 30%;
+  grid-template-rows: 80% 20%;
   height: 100%;
   position: sticky;
   /* overflow: hidden; */
@@ -195,24 +164,16 @@ div.header.container{
   /* background-color: green; */
 }
 
-.body-wrap{
-  display: grid;
-  grid-template-rows: 15% 80% 10%;
-  height: 100vh;
-  /* grid-gap: 10px; */
+.header.container h3{
+    content: "Welcome to NYSL CHAT";
+    font-size: 100%;
+    font-family: Verdana;
+    margin-bottom: 5%;
+    text-align: center;
+    text-shadow: 2px 2px 8px gray;
 }
 
-.foot{
-  text-align: center;
-}
-.me {
-  background: grey;
-}
 
-#header-cont{
-  padding:0;
-  height: 100%;
-}
 
 .head-new {
   padding: 1%;
@@ -248,20 +209,15 @@ div.header.container{
 }
 
 
-
-
-
-
-
 /* chat css */
-.message {
+.cont-messages {
     border: 1px solid black;
     padding: 5px;
     margin: 5px;
     background-color: lightgoldenrodyellow;
     border-radius: 10px;
     opacity: 0.8;
-    font-family: Verdana, Geneva, Tahoma, sans-serif; 
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .myMessage {
@@ -274,11 +230,16 @@ div.header.container{
     font-family: Verdana, Geneva, Tahoma, sans-serif; 
 }
 
+.me {
+  background: grey;
+}
+
+
 #posts{
-    height: 400px;
-    width: 400px;
+    height: 100%;
+    width: 100%;
     overflow: scroll;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     display: none;
     flex-direction: column;
 }
@@ -289,8 +250,8 @@ div.header.container{
 
 
 .advice{
-    height: 400px;
-    width: 400px;
+    height: 100%;
+    width: 100%;
     overflow: scroll;
     margin-bottom: 20px;
     display: flex;
@@ -308,34 +269,43 @@ div.header.container{
 }
 
 .chat{
-    height: 400px;
+    height: 450px;
 }
 
 .body-chat{
     height: 100%;
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    /* display: grid; */
+    /* grid-column:repeat(3,1fr); */
+    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
     justify-items: center;
 }
 
-.body-chat:before{
-    content: "Welcome to NYSL CHAT";
-    font-size: 30px;
-    font-family: Verdana;
-    margin-bottom: 30px;
-}
-
-.body-chat:after{
+.inputs h3{
     content: "Write your post and click 'Send'";
-    margin-top: 70px;
-    font-size: 14px;
+    margin-top: 5%;
+    font-size: 100%;
     color: grey;
 }
 
+.form-message{
+  display:none;
+}
+
+.form-message.active{
+  display:flex;
+}
+
 .inputs{
-    display: flex;
+    display: grid;
+    grid-auto-columns: 90% 10%;
+    justify-content: center;
+}
+
+#textInput{
+  width: 100%;
 }
 
 input{
@@ -365,6 +335,63 @@ input{
     font-weight: bold;
     color: lightyellow;
 }
+
+
+/* Footer */
+
+.foot{
+  display: grid;
+  text-align: center;
+  background-color: green;
+  align-items: center;
+  text-shadow: 2px 2px 8px #000000;
+}
+
+.foot h3 {
+  color: white;
+  margin: auto;
+}
+
+
+@media screen and (orientation:landscape) 
+and (max-device-width: 850px) {
+  
+
+  .body.chat{
+     justify-content: center;
+    align-items: center;
+    justify-items: center;
+
+  }
+
+  .chat{
+      height: 230px;
+      width: 80%;
+  }
+
+}
+
+
+
+
+
+
+
+@media screen and (min-device-width: 180px) and (max-device-width: 450px) {
+
+  .img-head-1, .img-head-2{
+    width: 100%
+  }
+    /* p, h3{
+  font-size: 60%;
+} */
+
+.time.row hr {
+  width: 10%;
+}
+
+}
+
 
 
 </style>
