@@ -1,8 +1,9 @@
+
 <template>
   <div class="welcome cotainer">
     <div class="card">
       <div class="card-content center-align">
-        <h2 class="teal-text">Welcome</h2>
+        <h2 class="teal-text">test</h2>
         <form @submit.prevent="enterchat">
           <label for="name">Enter your name</label>
           <input type="text" name="name" v-model="name">
@@ -16,7 +17,7 @@
 <script>
 import firebase from 'firebase';
 export default {
-  // name: Welcome,
+  // name: Chat,
   data(){
     return{
       name:null
@@ -49,3 +50,22 @@ export default {
 
 
 </style>
+
+<!-- <template>
+  <div class="chat">
+    <Welcome></Welcome>
+  </div>
+</template> -->
+
+<!--<script>
+
+ @ is an alias to /src
+import Welcome from '../components/Welcome.vue'
+
+export default {
+  name: 'chat',
+  components: {
+    'Welcome':Welcome
+  }
+}
+</script> -->
