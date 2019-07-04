@@ -15,7 +15,7 @@
       </div> 
       <div id="posts" class="box">
        <p id="load-notif"> Loading posts... </p>
-       <div class="cont-messages"  v-for="(key ,index) in displayChat" id="card-messages" :key='index'>
+       <div class="cont-messages"  v-for="(key ,index) in displayChat" id="card-messages" :key='index' :class='{me : currentUser == key.name}'>
         <p>{{key.name}} says:</p>
         <p>{{key.body}}</p>
        </div>
@@ -50,19 +50,21 @@ export default {
       name:null,
       time:null,
       newMessage:null,
-      dispMessages:{}
+      dispMessages:{},
+      currentUser: ''
     }
   },
   mounted() {
     //  console.log(firebase)
+    this.isLoggedIn();
     // this.getPosts()
-     var messages;
-           firebase.database().ref('main-chat').on('value', function (data) {
-               messages = data.val();
-               console.log(messages)
-           })
-          this.dispMessages = messages;
-          document.getElementById("load-notif").innerHTML="";
+    //  var messages;
+    //        firebase.database().ref('main-chat').on('value', function (data) {
+    //            messages = data.val();
+    //            console.log(messages)
+    //        })
+    //       this.dispMessages = messages;
+    //       document.getElementById("load-notif").innerHTML="";
   },
     methods: {
       login() {
@@ -74,7 +76,6 @@ export default {
       },
       writeNewPost() {
         if(document.getElementById("textInput").value===''){
-          
           return
         } 
        
@@ -104,19 +105,19 @@ export default {
         console.log(firebase.auth().currentUser)
       },
       getPosts() {
+        let that = this;
         var messages;
            firebase.database().ref('main-chat').on('value', function (data) {
                messages = data.val();
                document.getElementById("load-notif").innerHTML="";
-           })
+               that.dispMessages = messages;        })
           //  console.log("getting posts");
-          this.dispMessages = messages;
+          // this.dispMessages = messages;
          
-          return console.log(this.dispMessages);
-       }   
-    },
-    computed:{
-      displayChat(){
+          // return console.log(this.dispMessages);
+       },
+       isLoggedIn() {
+        const that = this;
         let chatMessages = {...this.dispMessages}
          
          firebase.auth().onAuthStateChanged(function (user) {
@@ -124,13 +125,36 @@ export default {
             // User is signed in.
             document.getElementById("posts").classList.add("active")
             document.getElementById("advice").classList.add("active")
+            that.currentUser = firebase.auth().currentUser.displayName;
+            that.getPosts();
 
           } else {
             // No user is signed in.
             document.getElementById("posts").classList.remove("active")
             document.getElementById("advice").classList.remove("active")
+            that.currentUser = '';
           }
           })
+       }   
+    },
+    computed:{
+      displayChat(){
+        const that = this;
+        let chatMessages = {...this.dispMessages}
+         
+        //  firebase.auth().onAuthStateChanged(function (user) {
+        //   if (user) {
+        //     // User is signed in.
+        //     document.getElementById("posts").classList.add("active")
+        //     document.getElementById("advice").classList.add("active")
+        //     // that.getPosts();
+
+        //   } else {
+        //     // No user is signed in.
+        //     document.getElementById("posts").classList.remove("active")
+        //     document.getElementById("advice").classList.remove("active")
+        //   }
+        //   })
          
 
         // console.log(this.dispMessages)
@@ -150,6 +174,7 @@ export default {
 
     }
 }
+
 </script>
 
 <style scoped>
@@ -180,7 +205,9 @@ div.header.container{
 .foot{
   text-align: center;
 }
-
+.me {
+  background: grey;
+}
 
 #header-cont{
   padding:0;
