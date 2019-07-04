@@ -18,9 +18,9 @@
         </div> 
         <div id="posts" class="box">
           <p id="load-notif"> Loading posts... </p>
-          <div class="cont-messages"  v-for="(key ,index) in displayChat" id="card-messages" :key='index' :class='{myMessage : currentUser == key.name}'>
-            <p>{{key.name}} says: </p>
-            <p>{{key.body}}</p>
+          <div v-for="(key ,index) in displayChat" id="card-messages" :key='index' :class='{myMessage : currentUser == key.name, "cont-messages" : currentUser != key.name}'>
+            <p id="name-user">{{key.name}} : </p>
+            <p id="message-user">{{key.body}}</p>
           </div>
         </div>  
         <div class="inputs">
@@ -35,7 +35,7 @@
 
 
     <div class="foot">
-      <router-link to="/schedule"> <h3> Back to Schedule </h3> </router-link> 
+      <router-link to="/"> <h3> Back to Schedule </h3> </router-link> 
     </div>
 
   </div>
@@ -88,6 +88,7 @@ export default {
 
         //clearing newMessage data and input
          this.newMessage = null;
+         this.scrollBottChat()
         
 
          return this.getPosts();
@@ -101,7 +102,7 @@ export default {
         firebase.database().ref('main-chat').on('value', function (data) {
           messages = data.val();
           document.getElementById("load-notif").innerHTML="";
-          that.dispMessages = messages;        
+          that.dispMessages = messages;      
           })
        },
        isLoggedIn() {
@@ -122,11 +123,17 @@ export default {
             that.currentUser = '';
           }
           })
+       },
+       scrollBottChat(){
+          var chatEl = document.getElementById("card-messages");
+          console.log(chatEl)
+          chatEl.scrollTop = chatEl.scrollHeight;   
        }   
     },
     computed:{
       displayChat(){
         let chatMessages = {...this.dispMessages}
+        
 
         return chatMessages;
       }
@@ -210,7 +217,10 @@ div.header.container{
 
 
 /* chat css */
-.cont-messages {
+
+
+/* .cont-messages {
+    grid-column: 1/8;
     border: 1px solid black;
     padding: 5px;
     margin: 5px;
@@ -218,10 +228,40 @@ div.header.container{
     border-radius: 10px;
     opacity: 0.8;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+} */
+
+#card-messages.cont-messages {
+  grid-column: 2/15;
+	position: relative;
+	background:lightgoldenrodyellow;
+	border-radius: .4em;
+  /* border: 1px solid black; */
+  padding: 5px;
+  margin: 5px;
 }
 
-.myMessage {
-    border: 1px solid black;
+
+#card-messages.cont-messages:after {
+  /* grid-column: 1/2; */
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 24px solid transparent;
+	border-right-color: lightgoldenrodyellow;
+	border-left: 0;
+	border-bottom: 0;
+	margin-top: -5.5px;
+	margin-left: -11px;
+}
+
+#card-messages.myMessage {
+  position: relative;
+	border-radius: .4em;
+    grid-column: 7/20;
+    /* border: 1px solid black; */
     padding: 5px;
     margin: 5px;
     background-color: rgb(210, 250, 220);
@@ -229,6 +269,35 @@ div.header.container{
     opacity: 0.8;
     font-family: Verdana, Geneva, Tahoma, sans-serif; 
 }
+
+
+#card-messages.myMessage:before {
+  grid-column: 19/21;
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-left-color:rgb(210, 250, 220);
+	border-right: 0;
+	border-bottom: 0;
+	margin-top: -10px;
+	margin-right: -20px;
+}
+
+
+/* .myMessage {
+    grid-column: 7/20;
+    border: 1px solid black;
+    padding: 5px;
+    margin: 5px;
+    background-color: rgb(210, 250, 220);
+    border-radius: 10px;
+    opacity: 0.8;
+    font-family: Verdana, Geneva, Tahoma, sans-serif; 
+} */
 
 .me {
   background: grey;
@@ -245,7 +314,8 @@ div.header.container{
 }
 
 #posts.active{
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(20,1fr)
 }
 
 
@@ -281,6 +351,19 @@ div.header.container{
     justify-content: center;
     align-items: center;
     justify-items: center;
+}
+
+
+
+#name-user{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: bolder;
+  margin-left: 5%;
+}
+
+#message-user{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin-left: 10%;
 }
 
 .inputs h3{
