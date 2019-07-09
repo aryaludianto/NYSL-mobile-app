@@ -24,7 +24,7 @@
           <div v-for="(key ,index) in displayChat" id="card-messages" :key='index' :class='{myMessage : currentUser == key.name, "cont-messages" : currentUser != key.name}'>
             <p id="name-user">{{key.name}} : </p>
             <p id="message-user">{{key.body}}</p>
-            <p id="time-stamp"> created: {{key.timeStamp}}</p>
+            <p id="time-stamp"> created: {{key.locTime}}</p>
           </div>
         </div>  
       </div>
@@ -43,6 +43,8 @@
 
 <script>
 import firebase, { messaging } from 'firebase';
+// import router from '../routes.js';
+
 
 export default {
   data(){
@@ -78,7 +80,8 @@ export default {
          var post = {
              name: userName,
              body: text,
-             timeStamp: new Date()
+            //  timeStamp: new Date()
+            timeStamp: Date.now()
          };
          // Get a key for a new Post.
          var newPostKey = firebase.database().ref().child('main-chat').push().key;
@@ -115,6 +118,7 @@ export default {
             document.getElementById("frm-mssg").classList.add("active")
             that.currentUser = firebase.auth().currentUser.displayName;
             that.getPosts();
+            that.$router.push('/chat')  
             
           } else {
             // No user is signed in.
@@ -135,13 +139,23 @@ export default {
        
          setTimeout(function(){ document.getElementById("bott-scroll").classList.remove("active"); }, 5000);
         }
-       
+        },
+        dateChat(){
+          let dateDisp = {...this.dispMessages}
+
+          Object.keys(dateDisp).map(key=>{
+            let z =  new Date(dateDisp[key].timeStamp)
+            let nice = z.getHours() + ":" + z.getMinutes() + " " + z.toDateString()
+
+            dateDisp[key].locTime = nice;
+          })
+          return dateDisp
         }   
 
     },
     computed:{
       displayChat(){
-        let chatMessages = {...this.dispMessages}
+        let chatMessages = this.dateChat();
         
         return chatMessages;
       }
@@ -193,7 +207,6 @@ div.header.container{
   grid-column: 6/15;
   grid-row: 5;
 }
-
 
 
 .head-new {
