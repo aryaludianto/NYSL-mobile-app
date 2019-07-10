@@ -1,11 +1,12 @@
 <template>
   <div class="body-wrap">
-    
     <div class="header container">
       <div class="head-new">
-       <router-link class="routr" to="/"> <img class="img-head-1" src="../images/schedule2icon.png"> </router-link> 
+        <router-link class="routr" to="/">
+          <img class="img-head-1" src="../images/schedule2icon.png" />
+        </router-link>
         <h1 class="gametext">NYSL Chat</h1>
-        <img class="img-head-2" src="../images/nysl_logo.png">
+        <img class="img-head-2" src="../images/nysl_logo.png" />
       </div>
       <div class="head-text">
         <h3>Welcome to NYSL Chat</h3>
@@ -16,161 +17,186 @@
       <div class="chat">
         <div id="advice" class="advice">
           You must to be logged
-          <button id="login" class="button is-info" @click="login()">Login!</button>      
-        </div> 
+          <button id="login" class="button is-info" @click="login()">Login!</button>
+        </div>
         <div id="posts" class="box" @scroll="scrollFunc">
-          <p id="load-notif"> Loading posts... </p>
-          <button id="bott-scroll" class="container" @click="scrollBottChat()">&#8630;</button>
-          <div v-for="(key ,index) in displayChat" id="card-messages" :key='index' :class='{myMessage : currentUser == key.name, "cont-messages" : currentUser != key.name}'>
-            <p id="name-user">{{key.name}} : </p>
-            <p id="message-user">{{key.body}}</p>
-            <p id="time-stamp"> created: {{key.locTime}}</p>
+          <div id="load-notif" class="lds-spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
           </div>
-        </div>  
+          <button id="bott-scroll" class="container" @click="scrollBottChat()">&#8630;</button>
+          <div
+            v-for="(key ,index) in displayChat"
+            id="card-messages"
+            :key="index"
+            :class="{myMessage : currentUser == key.name, contMessages : currentUser != key.name}"
+          >
+            <p id="name-user">{{key.name}} :</p>
+            <p id="message-user">{{key.body}}</p>
+            <p id="time-stamp">created: {{key.locTime}}</p>
+          </div>
+        </div>
       </div>
     </div>
-   
-      <div class="inputs container">
-        <form @submit.prevent="writeNewPost()" class="form-message" id="frm-mssg">
-          <input id="textInput" class="input" type="text" placeholder="Your message..." v-model="newMessage">
-          <button id="create-post" class="button is-primary" >Send</button>
-        </form>
-      </div>
-    
 
+    <div class="inputs container">
+      <form @submit.prevent="writeNewPost()" class="form-message" id="frm-mssg">
+        <input
+          id="textInput"
+          class="input"
+          type="text"
+          placeholder="Your message..."
+          v-model="newMessage"
+        />
+        <button id="create-post" class="button is-primary">Send</button>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
-import firebase, { messaging } from 'firebase';
-// import router from '../routes.js';
-
+import firebase, { messaging } from "firebase";
 
 export default {
-  data(){
-    return{
-      name:null,
-      time:null,
-      newMessage:null,
-      dispMessages:{},
-      currentUser: '',
-      scrollPos:0
-    }
+  data() {
+    return {
+      name: null,
+      time: null,
+      newMessage: null,
+      dispMessages: {},
+      currentUser: "",
+      scrollPos: 0
+    };
   },
   mounted() {
     this.isLoggedIn();
   },
-    methods: {
-      login() {
-        // Provider
-        var provider = new firebase.auth.GoogleAuthProvider();
-        // How to Log In
-        firebase.auth().signInWithPopup(provider);
-        // console.log("login");
-      },
-      writeNewPost() {
-        if(document.getElementById("textInput").value===''){
-          return
-        } 
-
-        // Values
-         var text = this.newMessage
-         var userName = firebase.auth().currentUser.displayName;
-         // A post entry
-         var post = {
-             name: userName,
-             body: text,
-            //  timeStamp: new Date()
-            timeStamp: Date.now()
-         };
-         // Get a key for a new Post.
-         var newPostKey = firebase.database().ref().child('main-chat').push().key;
-         //Write data
-         var updates = {};
-         updates[newPostKey] = post;
-         firebase.database().ref('main-chat').update(updates)
-
-        //clearing newMessage data and input
-         this.newMessage = null;
-      
-         return this.getPosts();
-      },
-      getUser(){
-        console.log(firebase.auth().currentUser)
-      },
-      getPosts() {
-        let that = this;
-        var messages;
-        firebase.database().ref('main-chat').on('value', function (data) {
-          messages = data.val();
-          document.getElementById("load-notif").innerHTML="";
-          that.dispMessages = messages;  
-          that.scrollBottChat();    
-          })
-       },
-       isLoggedIn() {
-        const that = this;        
-         firebase.auth().onAuthStateChanged(function (user) {
-          if (user) {
-            // User is signed in.
-            document.getElementById("posts").classList.add("active")
-            document.getElementById("advice").classList.add("active")
-            document.getElementById("frm-mssg").classList.add("active")
-            that.currentUser = firebase.auth().currentUser.displayName;
-            that.getPosts();
-            that.$router.push('/chat')  
-            
-          } else {
-            // No user is signed in.
-            document.getElementById("posts").classList.remove("active")
-            document.getElementById("advice").classList.remove("active")
-            that.currentUser = '';
-          }
-          
-          })
-       },
-       scrollBottChat(){
-          var chatEl = document.getElementById("posts");
-          chatEl.scrollTop = chatEl.scrollHeight;   
-       },
-       scrollFunc(){
-        if (document.getElementById("bott-scroll").classList != "active"){
-            document.getElementById("bott-scroll").classList.add("active")
-       
-         setTimeout(function(){ document.getElementById("bott-scroll").classList.remove("active"); }, 5000);
-        }
-        },
-        dateChat(){
-          let dateDisp = {...this.dispMessages}
-
-          Object.keys(dateDisp).map(key=>{
-            let z =  new Date(dateDisp[key].timeStamp)
-            let nice = z.getHours() + ":" + z.getMinutes() + " " + z.toDateString()
-
-            dateDisp[key].locTime = nice;
-          })
-          return dateDisp
-        }   
-
+  methods: {
+    login() {
+      // Provider
+      var provider = new firebase.auth.GoogleAuthProvider();
+      // How to Log In
+      firebase.auth().signInWithPopup(provider);
+      // console.log("login");
     },
-    computed:{
-      displayChat(){
-        let chatMessages = this.dateChat();
-        
-        return chatMessages;
+    writeNewPost() {
+      if (document.getElementById("textInput").value === "") {
+        return;
       }
 
-    }
-}
+      // Values
+      var text = this.newMessage;
+      var userName = firebase.auth().currentUser.displayName;
+      // A post entry
+      var post = {
+        name: userName,
+        body: text,
+        timeStamp: Date.now()
+      };
+      // Get a key for a new Post.
+      var newPostKey = firebase
+        .database()
+        .ref()
+        .child("main-chat")
+        .push().key;
+      //Write data
+      var updates = {};
+      updates[newPostKey] = post;
+      firebase
+        .database()
+        .ref("main-chat")
+        .update(updates);
 
+      //clearing newMessage data and input
+      this.newMessage = null;
+
+      return this.getPosts();
+    },
+    getUser() {
+      console.log(firebase.auth().currentUser);
+    },
+    getPosts() {
+      let that = this;
+      var messages;
+      firebase
+        .database()
+        .ref("main-chat")
+        .on("value", function(data) {
+          messages = data.val();
+          document.getElementById("load-notif").innerHTML = "";
+          that.dispMessages = messages;
+          that.scrollBottChat();
+        });
+    },
+    isLoggedIn() {
+      const that = this;
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+          document.getElementById("posts").classList.add("active");
+          document.getElementById("advice").classList.add("active");
+          document.getElementById("frm-mssg").classList.add("active");
+          that.currentUser = firebase.auth().currentUser.displayName;
+          that.getPosts();
+          that.$router.push("/chat");
+        } else {
+          // No user is signed in.
+          document.getElementById("posts").classList.remove("active");
+          document.getElementById("advice").classList.remove("active");
+          that.currentUser = "";
+        }
+      });
+    },
+    scrollBottChat() {
+      var chatEl = document.getElementById("posts");
+      chatEl.scrollTop = chatEl.scrollHeight;
+    },
+    scrollFunc() {
+      if (document.getElementById("bott-scroll").classList != "active") {
+        document.getElementById("bott-scroll").classList.add("active");
+
+        setTimeout(function() {
+          document.getElementById("bott-scroll").classList.remove("active");
+        }, 5000);
+      }
+    },
+    dateChat() {
+      let dateDisp = { ...this.dispMessages };
+
+      Object.keys(dateDisp).map(key => {
+        let z = new Date(dateDisp[key].timeStamp);
+        let nice = z.getHours() + ":" + z.getMinutes() + " " + z.toDateString();
+
+        dateDisp[key].locTime = nice;
+      });
+      return dateDisp;
+    }
+  },
+  computed: {
+    displayChat() {
+      let chatMessages = this.dateChat();
+
+      return chatMessages;
+    }
+  }
+};
 </script>
 
 <style scoped>
-
 /* Body wrap */
-.body-wrap{
+.body-wrap {
   display: grid;
-  grid-template-rows: 15% 80% 5% ;
+  grid-template-rows: 15% 80% 5%;
   height: 90vh;
   grid-auto-columns: 100vw;
   /* grid-gap: 10px; */
@@ -188,33 +214,31 @@ export default {
   z-index: 1;
 }
 
-div.header.container{
-  padding:0%;
+div.header.container {
+  padding: 0%;
   /* background-color: green; */
 }
 
-.header.container h3{
-    content: "Welcome to NYSL CHAT";
-    font-size: 150%;
-    font-family: Verdana;
-    margin-bottom: 5%;
-    text-align: center;
-    text-shadow: 2px 2px 8px gray;
-    
+.header.container h3 {
+  content: "Welcome to NYSL CHAT";
+  font-size: 150%;
+  font-family: Verdana;
+  margin-bottom: 5%;
+  text-align: center;
+  text-shadow: 2px 2px 8px gray;
 }
 
-#load-notif{
-  grid-column: 6/15;
-  grid-row: 5;
+#load-notif {
+  position: absolute;
+  margin: auto;
 }
-
 
 .head-new {
   padding: 1%;
   background-color: green;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-auto-rows: minmax(10px,auto);
+  grid-auto-rows: minmax(10px, auto);
   grid-gap: 10px;
   width: 100%;
   margin: 0;
@@ -223,7 +247,7 @@ div.header.container{
   height: 100%;
 }
 
-.routr{
+.routr {
   height: 100%;
   width: 100%;
   display: grid;
@@ -231,15 +255,15 @@ div.header.container{
   justify-items: center;
 }
 
-.img-head-1{
+.img-head-1 {
   grid-column: 1/2;
   /* width:40%; */
 
-  height:100%;
+  height: 100%;
 }
 
-.gametext{
-  grid-column:2/6;
+.gametext {
+  grid-column: 2/6;
   color: white;
   text-shadow: 2px 2px 8px #000000;
   width: 100%;
@@ -247,14 +271,14 @@ div.header.container{
   font-size: auto;
 }
 
-.img-head-2{
+.img-head-2 {
   grid-column: 6/7;
-   /* width: 40%; */
-   height:100%;
+  /* width: 40%; */
+  height: 100%;
 }
 
-.head-text{
-  border:1px solid black;
+.head-text {
+  border: 1px solid black;
   background-color: gray;
   height: 100%;
 }
@@ -266,116 +290,112 @@ div.header.container{
   margin: auto;
 }
 
-
 /* chat css */
 
-#card-messages.cont-messages {
+#card-messages.contMessages {
   grid-column: 2/15;
-	position: relative;
-	background:lightgoldenrodyellow;
-	border-radius: .4em;
+  position: relative;
+  background: lightgoldenrodyellow;
+  border-radius: 0.4em;
   /* border: 1px solid black; */
   padding: 5px;
   margin: 5px;
 }
 
-
-#card-messages.cont-messages:after {
+#card-messages.contMessages:after {
   /* grid-column: 1/2; */
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 50%;
-	width: 0;
-	height: 0;
-	border: 24px solid transparent;
-	border-right-color: lightgoldenrodyellow;
-	border-left: 0;
-	border-bottom: 0;
-	margin-top: -5.5px;
-	margin-left: -11px;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 24px solid transparent;
+  border-right-color: lightgoldenrodyellow;
+  border-left: 0;
+  border-bottom: 0;
+  margin-top: -5.5px;
+  margin-left: -11px;
 }
 
 #card-messages.myMessage {
   position: relative;
-	border-radius: .4em;
-    grid-column: 7/20;
-    /* border: 1px solid black; */
-    padding: 5px;
-    margin: 5px;
-    background-color: rgb(210, 250, 220);
-    border-radius: 10px;
-    opacity: 0.8;
-    font-family: Verdana, Geneva, Tahoma, sans-serif; 
+  border-radius: 0.4em;
+  grid-column: 7/20;
+  /* border: 1px solid black; */
+  padding: 5px;
+  margin: 5px;
+  background-color: rgb(210, 250, 220);
+  border-radius: 10px;
+  opacity: 0.8;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-
 
 #card-messages.myMessage:before {
   grid-column: 19/21;
-	content: '';
-	position: absolute;
-	right: 0;
-	top: 50%;
-	width: 0;
-	height: 0;
-	border: 20px solid transparent;
-	border-left-color:rgb(210, 250, 220);
-	border-right: 0;
-	border-bottom: 0;
-	margin-top: -10px;
-	margin-right: -20px;
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-left-color: rgb(210, 250, 220);
+  border-right: 0;
+  border-bottom: 0;
+  margin-top: -10px;
+  margin-right: -20px;
 }
 
-#posts{
-    height: 100%;
-    width: 100%;
-    overflow: scroll;
-    margin-bottom: 10px;
-    display: none;
-    flex-direction: column;
+#posts {
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+  margin-bottom: 10px;
+  display: none;
+  flex-direction: column;
 }
 
-#posts.active{
+#posts.active {
   display: grid;
-  grid-template-columns: repeat(20,1fr);
+  grid-template-columns: repeat(20, 1fr);
   margin: 0 10% 10% 0;
   width: 100%;
 }
 
-.advice{
-    height: 100%;
-    width: 100%;
-    overflow: scroll;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: grey;
-    color: white;
-    opacity: .7;
-    border-radius: 10px;
+.advice {
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: grey;
+  color: white;
+  opacity: 0.7;
+  border-radius: 10px;
 }
 
-.advice.active{
+.advice.active {
   display: none;
 }
 
-.chat{
-    height: 100%;
+.chat {
+  height: 100%;
 }
 
-.body-chat{
-    height: 100%;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    justify-items: center;
-    padding: 0;
+.body-chat {
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  padding: 0;
 }
 
-
-#time-stamp{
+#time-stamp {
   font-size: 50%;
   font-style: italic;
   margin-bottom: 0;
@@ -396,181 +416,265 @@ div.header.container{
   padding: 1em;
   border-radius: 4px;
   width: 10%;
-  height: 5%; 
+  height: 5%;
 }
 
-#bott-scroll.active{
-  display:block;
+#bott-scroll.active {
+  display: block;
 }
 
-
-#name-user{
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+#name-user {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-weight: bolder;
   margin-left: 5%;
   margin-bottom: 0;
 }
 
-#message-user{
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+#message-user {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   margin-left: 10%;
   margin-bottom: 1%;
 }
 
-.form-message{
-  display:none;
+.form-message {
+  display: none;
 }
 
-.form-message.active{
-  display:flex;
+.form-message.active {
+  display: flex;
   position: sticky;
 }
 
-.inputs{
-    display: grid;
-    grid-auto-columns: 90% 10%;
-    justify-content: center;
-    border-top: 1px solid gray;
-    border-right: 1px solid gray;
-    border-left: 1px solid gray;
-    height: 100%;
-    width: 100%;
-    padding: 0;
+.inputs {
+  display: grid;
+  grid-auto-columns: 90% 10%;
+  justify-content: center;
+  border-top: 1px solid gray;
+  border-right: 1px solid gray;
+  border-left: 1px solid gray;
+  height: 100%;
+  width: 100%;
+  padding: 0;
 }
 
-#textInput{
+#textInput {
   width: 100%;
 }
 
-input{
-    margin-right: 15px;
+input {
+  margin-right: 15px;
 }
 
-
-.name{
-    font-size: 12px;
-    font-weight: bold;
-    color: lightyellow;
+.name {
+  font-size: 12px;
+  font-weight: bold;
+  color: lightyellow;
 }
 
 /* Footer */
 
-.foot{
+.foot {
   display: grid;
   text-align: center;
   align-items: center;
 }
 
+/* Loader */
 
-@media screen and (orientation:landscape) 
-and (max-device-width: 850px) {
-  
-  .body.chat{
-     justify-content: center;
+.lds-spinner {
+  color: official;
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+.lds-spinner div {
+  transform-origin: 32px 32px;
+  animation: lds-spinner 1.2s linear infinite;
+}
+.lds-spinner div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 29px;
+  width: 5px;
+  height: 14px;
+  border-radius: 20%;
+  background: black;
+}
+.lds-spinner div:nth-child(1) {
+  transform: rotate(0deg);
+  animation-delay: -1.1s;
+}
+.lds-spinner div:nth-child(2) {
+  transform: rotate(30deg);
+  animation-delay: -1s;
+}
+.lds-spinner div:nth-child(3) {
+  transform: rotate(60deg);
+  animation-delay: -0.9s;
+}
+.lds-spinner div:nth-child(4) {
+  transform: rotate(90deg);
+  animation-delay: -0.8s;
+}
+.lds-spinner div:nth-child(5) {
+  transform: rotate(120deg);
+  animation-delay: -0.7s;
+}
+.lds-spinner div:nth-child(6) {
+  transform: rotate(150deg);
+  animation-delay: -0.6s;
+}
+.lds-spinner div:nth-child(7) {
+  transform: rotate(180deg);
+  animation-delay: -0.5s;
+}
+.lds-spinner div:nth-child(8) {
+  transform: rotate(210deg);
+  animation-delay: -0.4s;
+}
+.lds-spinner div:nth-child(9) {
+  transform: rotate(240deg);
+  animation-delay: -0.3s;
+}
+.lds-spinner div:nth-child(10) {
+  transform: rotate(270deg);
+  animation-delay: -0.2s;
+}
+.lds-spinner div:nth-child(11) {
+  transform: rotate(300deg);
+  animation-delay: -0.1s;
+}
+.lds-spinner div:nth-child(12) {
+  transform: rotate(330deg);
+  animation-delay: 0s;
+}
+@keyframes lds-spinner {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-device-width: 850px) {
+  .img-head-1,
+  .img-head-2 {
+    width: auto;
+    height: 90%;
+  }
+
+  .body.chat {
+    justify-content: center;
     align-items: center;
     justify-items: center;
   }
 
-  .body-chat.container{
+  .body-chat.container {
     padding: 0;
-
   }
 
-  .head-text{
+  .head-text {
     height: 150%;
   }
 
-  .chat{
-      height: 230px;
-      width: 80%;
+  .chat {
+    height: 230px;
+    width: 80%;
   }
 
-  .inputs{
+  .inputs {
     margin: 0 10% 0;
+  }
+
+  .body-wrap {
+    display: grid;
+    grid-template-rows: 20% 75% 10%;
+    height: 90vh;
+  }
+  .chat {
+    height: 100%;
+    width: 100%;
+  }
+
+  div.body-chat {
+    margin: auto;
+  }
+
+  div.inputs.container {
+    padding: 0;
+    margin: auto;
+  }
+
+  div#posts.box.active {
+    border: 1px solid black;
+    height: 100%;
+    width: 100%;
+  }
+
+  #bott-scroll {
+    right: 9.5%;
+  }
 }
 
-.body-wrap{
-  display: grid;
-  grid-template-rows: 20% 75% 10% ;
-  height: 90vh;
-}
-.chat{
-  height: 100%;
-  width: 100%;
-}
+/* @media only screen 
+    and (min-device-width : 375px) 
+    and (max-device-width : 667px) 
+    and (width : 667px) 
+    and (height : 375px) 
+    and (orientation : landscape) 
+    and (color : 8)
+    and (device-aspect-ratio : 375/667)
+    and (aspect-ratio : 667/375)
+    and (device-pixel-ratio : 2)
+    and (-webkit-min-device-pixel-ratio : 2) {
 
-div.body-chat{
-  margin: auto;
-}
+   
+    }
 
-div.inputs.container{
-  padding: 0;
-  margin: auto;
-}
-
-div#posts.box.active{
-  border: 1px solid black;
-  height: 100%;
-  width: 100%;
-}
-
-#bott-scroll {
-  right: 9.5%;
-}
-
-
-}
-
-
-
+  */
 
 @media screen and (min-device-width: 180px) and (max-device-width: 450px) {
-
-  .header.container h3{
+  .header.container h3 {
     font-size: 110%;
-}
-
-  .img-head-1, .img-head-2{
-    width: 100%
   }
 
-.img-head-1{
-  grid-column: 1/2;
-  height: auto;
+  .img-head-1,
+  .img-head-2 {
+    width: 100%;
+  }
+
+  .img-head-1 {
+    grid-column: 1/2;
+    height: auto;
+  }
+
+  .gametext {
+    grid-column: 2/6;
+  }
+
+  .img-head-2 {
+    grid-column: 6/7;
+    height: auto;
+  }
+
+  .time.row hr {
+    width: 10%;
+  }
+
+  #posts {
+    margin: 0;
+  }
+
+  div.inputs.container {
+    padding: 0;
+  }
+
+  #bott-scroll {
+    right: 0%;
+  }
 }
-
-.gametext{
-  grid-column:2/6;
-  
-}
-
-.img-head-2{
-  grid-column: 6/7;
-  height: auto;
-}
-
-
-
-
-.time.row hr {
-  width: 10%;
-}
-
-#posts {
-  margin: 0;
-  
-}
-
-div.inputs.container{
-  padding: 0;
-}
-
-#bott-scroll {
-  right: 0%;
-}
-
-}
-
-
-
 </style>
