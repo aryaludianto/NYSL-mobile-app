@@ -9,7 +9,7 @@
         <img class="img-head-2" src="../images/nysl_logo.png" />
       </div>
       <div class="head-text">
-        <h3>Welcome to NYSL Chat</h3>
+        <h3>Welcome {{currentUser}}</h3>
       </div>
     </div>
 
@@ -34,7 +34,7 @@
             <div></div>
             <div></div>
           </div>
-          <button id="bott-scroll" class="container" @click="scrollBottChat()">&#8630;</button>
+          <button id="bott-scroll"  @click="scrollBottChat()">&#8630;</button>
           <div
             v-for="(key ,index) in displayChat"
             id="card-messages"
@@ -133,7 +133,7 @@ export default {
         .ref("main-chat")
         .on("value", function(data) {
           messages = data.val();
-          document.getElementById("load-notif").innerHTML = "";
+          document.getElementById("load-notif").classList.add("active")
           that.dispMessages = messages;
           that.scrollBottChat();
         });
@@ -229,8 +229,14 @@ div.header.container {
 }
 
 #load-notif {
-  position: absolute;
-  margin: auto;
+  /* justify-content: center; */
+  /* margin: auto; */
+  grid-row: 3/5;
+  grid-column: 11/11;
+}
+
+#load-notif.active{
+  display:none;
 }
 
 .head-new {
@@ -345,6 +351,10 @@ div.header.container {
   border-bottom: 0;
   margin-top: -10px;
   margin-right: -20px;
+}
+
+#card-messages.myMessage p:first-child {
+  display: none;
 }
 
 #posts {
