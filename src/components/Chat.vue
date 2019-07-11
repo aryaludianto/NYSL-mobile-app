@@ -564,7 +564,7 @@ input {
   .img-head-1,
   .img-head-2 {
     width: auto;
-    height: 90%;
+    height: 100%;
   }
 
   .body.chat {
