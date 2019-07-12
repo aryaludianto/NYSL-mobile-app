@@ -34,7 +34,7 @@
             <div></div>
             <div></div>
           </div>
-          <button id="bott-scroll"  @click="scrollBottChat()">&#8630;</button>
+          <button id="bott-scroll" @click="scrollBottChat()">&#8630;</button>
           <div
             v-for="(key ,index) in displayChat"
             id="card-messages"
@@ -80,6 +80,9 @@ export default {
   },
   mounted() {
     this.isLoggedIn();
+  },
+  updated() {
+    this.scrollBottChat();
   },
   methods: {
     login() {
@@ -133,7 +136,7 @@ export default {
         .ref("main-chat")
         .on("value", function(data) {
           messages = data.val();
-          document.getElementById("load-notif").classList.add("active")
+          document.getElementById("load-notif").classList.add("active");
           that.dispMessages = messages;
           that.scrollBottChat();
         });
@@ -158,8 +161,9 @@ export default {
       });
     },
     scrollBottChat() {
-      var chatEl = document.getElementById("posts");
-      chatEl.scrollTop = chatEl.scrollHeight;
+      let posts = document.getElementById("posts");
+      let newPost = posts.lastChild;
+      newPost.scrollIntoView();
     },
     scrollFunc() {
       if (document.getElementById("bott-scroll").classList != "active") {
@@ -235,8 +239,8 @@ div.header.container {
   grid-column: 11/11;
 }
 
-#load-notif.active{
-  display:none;
+#load-notif.active {
+  display: none;
 }
 
 .head-new {
@@ -364,6 +368,7 @@ div.header.container {
   margin-bottom: 10px;
   display: none;
   flex-direction: column;
+  scroll-behavior: smooth;
 }
 
 #posts.active {
