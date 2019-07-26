@@ -1,5 +1,7 @@
 # nysl-mobile
 
+Simple Mobile PWA for Soccer Game Schedule with integrated Chat App with Firebase. Done in Vue CLI
+
 ## Project setup
 ```
 npm install
